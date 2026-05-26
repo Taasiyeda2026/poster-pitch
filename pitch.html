@@ -1321,13 +1321,39 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
 
         var cardsHtml = "";
         cards.forEach(function (card, i) {
-          var borderColor = i % 2 === 0 ? "#0f766e" : "#2563eb";
-          var bgColor = i % 2 === 0 ? "#f0fdfa" : "#f8fbff";
-          cardsHtml += '<section style="margin-bottom:16px;padding:14px 16px;border:1px solid #dbeafe;border-right:4px solid ' + borderColor + ';border-radius:10px;background:' + bgColor + ';page-break-inside:avoid;">';
-          cardsHtml += '<h2 style="margin:0 0 8px;font-size:1.05em;font-weight:900;color:' + borderColor + ';">';
-          cardsHtml += 'משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h2>';
-          cardsHtml += '<p style="margin:0;white-space:pre-wrap;line-height:1.8;font-size:1em;color:#111827;">' + esc(card.text) + '</p>';
-          cardsHtml += '</section>';
+          var isLast = i === cards.length - 1;
+          var accentColor = i % 2 === 0 ? "#0f766e" : "#1d4ed8";
+          var nameBg    = i % 2 === 0 ? "#f0fdfa"  : "#eff6ff";
+          var nameBorder= i % 2 === 0 ? "#99f6e4"  : "#bfdbfe";
+
+          cardsHtml += '<div style="margin-bottom:' + (isLast ? "0" : "28px") + ';page-break-inside:avoid;">';
+
+          cardsHtml += '<div style="'
+            + 'display:inline-block;'
+            + 'margin-bottom:11px;'
+            + 'padding:6px 18px 6px 14px;'
+            + 'background:' + nameBg + ';'
+            + 'border:1.5px solid ' + nameBorder + ';'
+            + 'border-right:5px solid ' + accentColor + ';'
+            + 'border-radius:8px;'
+            + 'font-size:1.18em;'
+            + 'font-weight:900;'
+            + 'color:' + accentColor + ';'
+            + 'letter-spacing:0.01em;'
+            + 'print-color-adjust:exact;'
+            + '-webkit-print-color-adjust:exact;'
+            + '">'
+            + esc(card.name || ("משתתף " + card.num))
+            + '</div>';
+
+          cardsHtml += '<p style="margin:0;white-space:pre-wrap;line-height:1.85;font-size:1em;color:#111827;padding-right:2px;">'
+            + esc(card.text) + '</p>';
+
+          if (!isLast) {
+            cardsHtml += '<hr style="margin:22px 0 0;border:none;border-top:1px solid #d1fae5;">';
+          }
+
+          cardsHtml += '</div>';
         });
 
         var popupHtml = '<!DOCTYPE html><html lang="he" dir="rtl"><head>'
@@ -1343,7 +1369,7 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
           + '.print-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border:0;border-radius:999px;background:linear-gradient(135deg,#0f766e,#2563eb);color:#fff;font-family:inherit;font-size:0.95em;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(37,99,235,0.22);}'
           + '.print-btn:hover{opacity:0.92;}'
           + '.doc{max-width:800px;margin:0 auto;padding:24px 20px 48px;}'
-          + '.doc-header{margin-bottom:20px;padding:16px 20px;border:1px solid #99f6e4;border-radius:14px;background:linear-gradient(135deg,#ecfeff,#f0fdfa);}'
+          + '.doc-header{margin-bottom:24px;padding:16px 20px;border:1px solid #99f6e4;border-radius:14px;background:linear-gradient(135deg,#ecfeff,#f0fdfa);print-color-adjust:exact;-webkit-print-color-adjust:exact;}'
           + '.brand-tag{display:inline-block;padding:3px 12px;border-radius:999px;background:#ccfbf1;color:#115e59;font-weight:900;font-size:0.85em;margin-bottom:8px;}'
           + '.doc-header h1{margin:0 0 8px;font-size:1.6em;font-weight:900;color:#0f172a;}'
           + '.doc-header .meta{margin:0 0 4px;font-size:0.95em;color:#334155;}'
@@ -1353,6 +1379,7 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
           + 'body{background:#fff!important;}'
           + '.toolbar{display:none!important;}'
           + '.doc{padding:0!important;}'
+          + 'hr{border-top-color:#bbb!important;}'
           + '}'
           + '</style></head><body>'
           + '<div class="toolbar no-print">'
