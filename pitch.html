@@ -974,10 +974,6 @@
         </div>
       </div>
 
-      <div id="pitchDocumentPreview" class="print-preview-shell" style="display:none" aria-live="polite"></div>
-      <div class="actions" id="pitchPreviewActions" style="display:none">
-        <button class="btn secondary" type="button" id="printPitchDocumentBtn">הדפסה / שמירה ל־PDF</button>
-      </div>
     </section>
 
     <div class="page-actions no-print">
@@ -1124,62 +1120,62 @@
 
       function buildAIPrompt() {
         var projectName = fill("project_name");
-        var count = getStudentCount();
         var names = getStudentNames();
 
         var p = "";
-        p += "אנא כתוב פיץ׳ מקצועי בעברית עבור קבוצת תלמידים בתוכנית 'רוקחים עולם'.\n\n";
-        p += "הפיץ׳ צריך להיות מתאים לכלל התלמידים, בלי ניסוח מגדרי של בנות בלבד.\n";
-        p += "אין להשתמש בביטוי 'נאום מעלית'.\n";
-        p += "אין להוסיף טיימר, חלוקת זמנים או הנחיות זמן.\n";
-        p += "יש לכתוב בעברית תקינה, ברורה, טבעית ומתאימה להצגה של תלמידים.\n";
-        p += "אם יש משתתף אחד — עליו להציג את כל הפיץ׳ ברציף.\n";
-        p += "אם יש כמה משתתפים — חלק את הפיץ׳ בצורה מאוזנת בין המשתתפים לפי שמותיהם.\n";
-        p += "יש לשמור על רצף רעיוני פשוט: פתיחה, בעיה או צורך, למי זה עוזר, רעיון הפתרון, הדמיית ה־אי, אופן שימוש, מה מיוחד ברעיון, למה הוא חשוב וסיום.\n";
-        p += "בסוף יש להחזיר רק את הפיץ׳ הסופי להצגה, בלי הסברים על מה עשית.\n\n";
+        p += 'להלן תשובות של קבוצת תלמידים בתוכנית "רוקחים עולם" לשאלות הכנה לפיץ׳.\n';
+        p += "על סמך התשובות בלבד, נסח פיץ׳ מקצועי, ברור וקולח להצגה בפני קהל.\n\n";
 
-        p += "━━━━━━━━━━━━━━━━━━━━━\n";
-        p += "נתוני המיזם:\n";
-        p += "━━━━━━━━━━━━━━━━━━━━━\n";
-        p += "שם המיזם: " + projectName + "\n";
-        p += "מספר משתתפים: " + count + "\n";
+        p += "הנחיות כלליות:\n";
+        p += "• הפיץ׳ צריך להיות מתאים לכלל התלמידים, בניסוח ניטרלי מגדרית.\n";
+        p += "• יש לכתוב בעברית תקינה, טבעית ומתאימה לדיבור של תלמידים.\n";
+        p += "• אין להוסיף מידע שלא מופיע בתשובות.\n";
+        p += "• אין לציין את השאלות עצמן או את תהליך הכתיבה.\n\n";
+
+        p += "משתתפים:\n";
         names.forEach(function (name, index) {
-          p += "משתתף " + (index + 1) + ": " + name + "\n";
+          p += (index + 1) + ". " + name + "\n";
         });
+        p += "\n";
 
-        p += "\n━━━━━━━━━━━━━━━━━━━━━\n";
-        p += "תוכן הפיץ׳:\n";
-        p += "━━━━━━━━━━━━━━━━━━━━━\n";
-        p += "הבעיה או הצורך שבחרו לפתור: " + fill("problem") + "\n";
-        p += "למי הפתרון יכול לעזור: " + fill("audience") + "\n";
+        p += "אופן הצגת הפלט (חובה):\n";
+        p += "• הפלט חייב להיות מחולק לפי משתתפים.\n";
+        p += "• עבור כל משתתף יש לציין את שמו, ומתחתיו את החלק שהוא מציג בפיץ׳.\n";
+        p += "• לכל משתתף חייב להיות היקף טקסט דומה, כך שזמן הדיבור יהיה שווה בין כולם.\n";
+        p += "• המעברים בין המשתתפים צריכים להיות טבעיים וברורים.\n\n";
+
+        p += "מבנה רעיוני כולל (על פני כלל המשתתפים, לפי הסדר):\n";
+        p += "פתיחה\n";
+        p += "בעיה או צורך\n";
+        p += "למי זה עוזר\n";
+        p += "רעיון הפתרון\n";
+        p += "הדמיית ה-AI\n";
+        p += "אופן השימוש\n";
+        p += "מה מיוחד ברעיון\n";
+        p += "למה הוא חשוב\n";
+        p += "סיום\n\n";
+
+        p += "תשובות התלמידים:\n";
+        p += "שם המיזם: " + projectName + "\n";
+        p += "מה הבעיה או הצורך שבחרתם לפתור: " + fill("problem") + "\n";
+        p += "למי הפתרון שלכם יכול לעזור: " + fill("audience") + "\n";
         p += "מתי או איפה הבעיה קורית: " + fill("situation") + "\n";
         p += "מה קשה במצב הזה: " + fill("difficulty") + "\n";
-        p += "איך הפתרון אמור לעזור: " + fill("main_need") + "\n";
+        p += "איך הפתרון שלכם אמור לעזור: " + fill("main_need") + "\n";
         p += "מה חשוב שיהיה בפתרון: " + fill("quality_1") + "\n";
-        p += "הרעיון לפתרון: " + fill("idea") + "\n";
+        p += "מה הרעיון שלכם לפתרון: " + fill("idea") + "\n";
         p += "איך משתמשים בפתרון: " + fill("product_action") + "\n";
-        p += "איך השתמשו ב־אי כדי להמחיש את המוצר: " + fill("prototype_description") + "\n";
-        p += "מה הדמיית ה־אי מראה על המוצר: " + fill("focus_1") + "\n";
-        p += "מה שופר או מה היו רוצים לשפר ברעיון: " + fill("improvement") + "\n";
+        p += "איך השתמשתם ב-AI כדי להמחיש את המוצר: " + fill("prototype_description") + "\n";
+        p += "מה ההדמיה מראה על המוצר: " + fill("focus_1") + "\n";
+        p += "מה שיפרתם או הייתם רוצים לשפר ברעיון: " + fill("improvement") + "\n";
         p += "מה קורה בהתחלה כשמשתמשים במוצר: " + fill("step_1") + "\n";
         p += "מה קורה אחר כך: " + fill("step_2") + "\n";
         p += "מה התוצאה בסוף: " + fill("step_3") + "\n";
         p += "מה מיוחד ברעיון: " + fill("unique_part") + "\n";
         p += "איך הרעיון עוזר למי שישתמש בו: " + fill("target_value") + "\n";
-        p += "למה הרעיון חשוב: " + fill("main_value") + "\n";
+        p += "למה הרעיון חשוב: " + fill("main_value") + "\n\n";
 
-        p += "\n━━━━━━━━━━━━━━━━━━━━━\n";
-        p += "מבנה התוצאה המבוקש:\n";
-        p += "━━━━━━━━━━━━━━━━━━━━━\n";
-        if (count === 1) {
-          p += "כתוב פיץ׳ רציף אחד תחת הכותרת: משתתף 1: " + names[0] + "\n";
-        } else {
-          p += "חלק את הפיץ׳ לפי המשתתפים, בדיוק כך:\n";
-          names.forEach(function (name, index) {
-            p += "משתתף " + (index + 1) + ": " + name + "\n";
-          });
-        }
-        p += "אל תוסיף טבלת זמנים. אל תוסיף נאום מעלית. אל תשתמש בניסוח מגדרי של בנות בלבד. אל תכתוב בשפה גבוהה מדי; הפיץ׳ צריך להתאים לתלמידי כיתה ו׳.";
+        p += "בסוף החזר רק את הפיץ׳ הסופי להצגה, מחולק לפי משתתפים עם שמותיהם, ללא הסברים או הערות נוספות.";
 
         return p;
       }
@@ -1306,38 +1302,81 @@
 
       function renderPreview() {
         var fullPitch = getValue("fullPitch");
-        var preview = $("pitchDocumentPreview");
-        var actions = $("pitchPreviewActions");
 
         if (!fullPitch) {
-          showStatus("pasteStatusMessage", "יש להדביק תחילה את הפיץ׳ שהתקבל מה־אי.", true);
-          if (preview) preview.style.display = "none";
-          if (actions) actions.style.display = "none";
-          buildPrintDocument();
+          showStatus("pasteStatusMessage", "יש להדביק תחילה את הפיץ׳ שהתקבל מה-AI.", true);
           return;
         }
 
         var cards = parsePitchOutput(fullPitch);
         var projectName = getValue("project_name") || "—";
-        var html = '<article class="preview-doc">';
-        html += '<h3>פיץ׳ סופי להצגה</h3>';
-        html += '<p class="note"><strong>שם המיזם:</strong> ' + esc(projectName) + '</p>';
+        var names = getStudentNames();
 
-        cards.forEach(function (card) {
-          html += '<section class="preview-card">';
-          html += '<h4>משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h4>';
-          html += '<p>' + esc(card.text) + '</p>';
-          html += '</section>';
+        var nameTagsHtml = names.map(function (n) {
+          return '<span style="display:inline-block;margin:2px 3px;padding:3px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:0.92em;font-weight:700;">' + esc(n) + '</span>';
+        }).join("");
+
+        var cardsHtml = "";
+        cards.forEach(function (card, i) {
+          var borderColor = i % 2 === 0 ? "#0f766e" : "#2563eb";
+          var bgColor = i % 2 === 0 ? "#f0fdfa" : "#f8fbff";
+          cardsHtml += '<section style="margin-bottom:16px;padding:14px 16px;border:1px solid #dbeafe;border-right:4px solid ' + borderColor + ';border-radius:10px;background:' + bgColor + ';page-break-inside:avoid;">';
+          cardsHtml += '<h2 style="margin:0 0 8px;font-size:1.05em;font-weight:900;color:' + borderColor + ';">';
+          cardsHtml += 'משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h2>';
+          cardsHtml += '<p style="margin:0;white-space:pre-wrap;line-height:1.8;font-size:1em;color:#111827;">' + esc(card.text) + '</p>';
+          cardsHtml += '</section>';
         });
 
-        html += '</article>';
+        var popupHtml = '<!DOCTYPE html><html lang="he" dir="rtl"><head>'
+          + '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+          + '<title>פיץ׳ סופי — ' + esc(projectName) + '</title>'
+          + '<link rel="preconnect" href="https://fonts.googleapis.com">'
+          + '<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&display=swap" rel="stylesheet">'
+          + '<style>'
+          + '*{box-sizing:border-box;}'
+          + 'body{margin:0;font-family:"Rubik",Arial,sans-serif;background:#f4fbfb;color:#334155;direction:rtl;text-align:right;}'
+          + '.toolbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(255,255,255,0.95);border-bottom:1px solid rgba(15,118,110,0.18);backdrop-filter:blur(12px);}'
+          + '.toolbar-title{font-weight:900;font-size:1.05em;color:#115e59;}'
+          + '.print-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border:0;border-radius:999px;background:linear-gradient(135deg,#0f766e,#2563eb);color:#fff;font-family:inherit;font-size:0.95em;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(37,99,235,0.22);}'
+          + '.print-btn:hover{opacity:0.92;}'
+          + '.doc{max-width:800px;margin:0 auto;padding:24px 20px 48px;}'
+          + '.doc-header{margin-bottom:20px;padding:16px 20px;border:1px solid #99f6e4;border-radius:14px;background:linear-gradient(135deg,#ecfeff,#f0fdfa);}'
+          + '.brand-tag{display:inline-block;padding:3px 12px;border-radius:999px;background:#ccfbf1;color:#115e59;font-weight:900;font-size:0.85em;margin-bottom:8px;}'
+          + '.doc-header h1{margin:0 0 8px;font-size:1.6em;font-weight:900;color:#0f172a;}'
+          + '.doc-header .meta{margin:0 0 4px;font-size:0.95em;color:#334155;}'
+          + '.doc-header .meta strong{color:#115e59;}'
+          + '.names-row{margin-top:8px;}'
+          + '@media print{'
+          + 'body{background:#fff!important;}'
+          + '.toolbar{display:none!important;}'
+          + '.doc{padding:0!important;}'
+          + '}'
+          + '</style></head><body>'
+          + '<div class="toolbar no-print">'
+          + '<span class="toolbar-title">פיץ׳ סופי להצגה — ' + esc(projectName) + '</span>'
+          + '<button class="print-btn" onclick="window.print()">🖨 הדפסה / שמירה ל-PDF</button>'
+          + '</div>'
+          + '<div class="doc">'
+          + '<div class="doc-header">'
+          + '<div class="brand-tag">רוקחים עולם</div>'
+          + '<h1>' + esc(projectName) + '</h1>'
+          + '<p class="meta"><strong>משתתפים:</strong></p>'
+          + '<div class="names-row">' + nameTagsHtml + '</div>'
+          + '</div>'
+          + cardsHtml
+          + '</div>'
+          + '</body></html>';
 
-        if (preview) {
-          preview.innerHTML = html;
-          preview.style.display = "block";
+        var popup = window.open("", "_blank", "width=860,height=720,scrollbars=yes,resizable=yes");
+        if (!popup) {
+          showStatus("pasteStatusMessage", "הדפדפן חסם את החלון. יש לאשר חלונות קופצים ולנסות שוב.", true);
+          return;
         }
-        if (actions) actions.style.display = "flex";
-        showStatus("pasteStatusMessage", "מסמך הפיץ׳ נוצר לתצוגה ולהדפסה.", false);
+        popup.document.write(popupHtml);
+        popup.document.close();
+        popup.focus();
+
+        showStatus("pasteStatusMessage", "מסמך הפיץ׳ נפתח בחלון חדש. לחצו הדפסה בחלון שנפתח.", false);
         buildPrintDocument();
         saveAll();
       }
