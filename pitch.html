@@ -976,9 +976,6 @@
 
     </section>
 
-    <div class="page-actions no-print">
-      <button class="btn" type="button" id="printPage">שמירה כ־PDF / הדפסה</button>
-    </div>
   </main>
 
 
@@ -1326,7 +1323,7 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
           var nameBg    = i % 2 === 0 ? "#f0fdfa"  : "#eff6ff";
           var nameBorder= i % 2 === 0 ? "#99f6e4"  : "#bfdbfe";
 
-          cardsHtml += '<div style="margin-bottom:' + (isLast ? "0" : "28px") + ';page-break-inside:avoid;">';
+          cardsHtml += '<div style="margin-bottom:' + (isLast ? "0" : "28px") + ';page-break-inside:avoid;break-inside:avoid;">';
 
           cardsHtml += '<div style="'
             + 'display:inline-block;'
@@ -1376,10 +1373,12 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
           + '.doc-header .meta strong{color:#115e59;}'
           + '.names-row{margin-top:8px;}'
           + '@media print{'
-          + 'body{background:#fff!important;}'
+          + '@page{size:A4;margin:14mm;}'
+          + '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'
+          + 'body{background:#fff!important;font-size:14pt;line-height:1.6;direction:rtl;text-align:right;color:#111827;}'
           + '.toolbar{display:none!important;}'
-          + '.doc{padding:0!important;}'
-          + 'hr{border-top-color:#bbb!important;}'
+          + '.doc{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;}'
+          + 'hr{border:none!important;border-top:1pt solid #ccc!important;}'
           + '}'
           + '</style></head><body>'
           + '<div class="toolbar no-print">'
@@ -1484,8 +1483,6 @@ p += "• המעברים בין המשתתפים צריכים להיות טבע�
         var printDocBtn = $("printPitchDocumentBtn");
         if (printDocBtn) printDocBtn.addEventListener("click", function () { window.print(); });
 
-        var printPageBtn = $("printPage");
-        if (printPageBtn) printPageBtn.addEventListener("click", function () { window.print(); });
       }
 
       if (document.readyState === "loading") {
