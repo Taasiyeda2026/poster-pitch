@@ -985,33 +985,13 @@
     </div>
   </main>
 
+
   <script>
     (function () {
       "use strict";
 
       var STORAGE_KEY = "rokchim-olam-pitch-activity-v1";
       var BLANK = "________";
-
-      var FIELD_IDS = [
-        "project_name",
-        "problem",
-        "audience",
-        "situation",
-        "difficulty",
-        "main_need",
-        "quality_1",
-        "idea",
-        "product_action",
-        "prototype_description",
-        "focus_1",
-        "improvement",
-        "step_1",
-        "step_2",
-        "step_3",
-        "unique_part",
-        "target_value",
-        "main_value"
-      ];
 
       function $(id) {
         return document.getElementById(id);
@@ -1034,12 +1014,6 @@
 
       function stripFinalPunctuation(text) {
         return cleanText(text).replace(/[.,:;!?]+$/g, "").trim();
-      }
-
-      function ensureSentence(text) {
-        var cleaned = cleanText(text);
-        if (!cleaned) return "";
-        return /[.!?]$/.test(cleaned) ? cleaned : cleaned + ".";
       }
 
       function fill(id) {
@@ -1134,7 +1108,7 @@
             input.id = "student_" + num;
             input.setAttribute("autocomplete", "off");
             input.setAttribute("data-save", "");
-            input.setAttribute("placeholder", "שם המשתתף ה־" + num);
+            input.setAttribute("placeholder", "שם המשתתף הִ־" + num);
             input.value = current["student_" + num] || "";
 
             input.addEventListener("input", function () {
@@ -1153,78 +1127,61 @@
         var count = getStudentCount();
         var names = getStudentNames();
 
-        var prompt = "אנא כתוב פיץ׳ מקצועי בעברית עבור קבוצת תלמידים בתוכנית 'רוקחים עולם'.\n\n";
-        prompt += "הפיץ׳ צריך להיות מתאים לכלל התלמידים, בלי ניסוח מגדרי של בנות בלבד.\n";
-        prompt += "אין להשתמש בביטוי 'נאום מעלית'.\n";
-        prompt += "אין להוסיף טיימר, חלוקת זמנים או הנחיות זמן.\n";
-        prompt += "יש לכתוב בעברית תקינה, ברורה, טבעית ומתאימה להצגה של תלמידים.\n";
-        prompt += "אם יש משתתף אחד — עליו להציג את כל הפיץ׳ ברצף.\n";
-        prompt += "אם יש כמה משתתפים — חלק את הפיץ׳ בצורה מאוזנת בין המשתתפים לפי שמותיהם.\n";
-        prompt += "יש לשמור על רצף רעיוני פשוט: פתיחה, בעיה או צורך, למי זה עוזר, רעיון הפתרון, הדמיית ה־AI, אופן שימוש, מה מיוחד ברעיון, למה הוא חשוב וסיום.
-";
-        prompt += "בסוף יש להחזיר רק את הפיץ׳ הסופי להצגה, בלי הסברים על מה עשית.\n\n";
+        var p = "";
+        p += "אנא כתוב פיץ׳ מקצועי בעברית עבור קבוצת תלמידים בתוכנית 'רוקחים עולם'.\n\n";
+        p += "הפיץ׳ צריך להיות מתאים לכלל התלמידים, בלי ניסוח מגדרי של בנות בלבד.\n";
+        p += "אין להשתמש בביטוי 'נאום מעלית'.\n";
+        p += "אין להוסיף טיימר, חלוקת זמנים או הנחיות זמן.\n";
+        p += "יש לכתוב בעברית תקינה, ברורה, טבעית ומתאימה להצגה של תלמידים.\n";
+        p += "אם יש משתתף אחד — עליו להציג את כל הפיץ׳ ברציף.\n";
+        p += "אם יש כמה משתתפים — חלק את הפיץ׳ בצורה מאוזנת בין המשתתפים לפי שמותיהם.\n";
+        p += "יש לשמור על רצף רעיוני פשוט: פתיחה, בעיה או צורך, למי זה עוזר, רעיון הפתרון, הדמיית ה־אי, אופן שימוש, מה מיוחד ברעיון, למה הוא חשוב וסיום.\n";
+        p += "בסוף יש להחזיר רק את הפיץ׳ הסופי להצגה, בלי הסברים על מה עשית.\n\n";
 
-        prompt += "━━━━━━━━━━━━━━━━━━━━━\n";
-        prompt += "נתוני המיזם:\n";
-        prompt += "━━━━━━━━━━━━━━━━━━━━━\n";
-        prompt += "שם המיזם: " + projectName + "\n";
-        prompt += "מספר משתתפים: " + count + "\n";
+        p += "━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "נתוני המיזם:\n";
+        p += "━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "שם המיזם: " + projectName + "\n";
+        p += "מספר משתתפים: " + count + "\n";
         names.forEach(function (name, index) {
-          prompt += "משתתף " + (index + 1) + ": " + name + "\n";
+          p += "משתתף " + (index + 1) + ": " + name + "\n";
         });
 
-        prompt += "\n━━━━━━━━━━━━━━━━━━━━━\n";
-        prompt += "תוכן הפיץ׳:\n";
-        prompt += "━━━━━━━━━━━━━━━━━━━━━\n";
-        prompt += "הבעיה או הצורך שבחרו לפתור: " + fill("problem") + "
-";
-        prompt += "למי הפתרון יכול לעזור: " + fill("audience") + "
-";
-        prompt += "מתי או איפה הבעיה קורית: " + fill("situation") + "
-";
-        prompt += "מה קשה במצב הזה: " + fill("difficulty") + "
-";
-        prompt += "איך הפתרון אמור לעזור: " + fill("main_need") + "
-";
-        prompt += "מה חשוב שיהיה בפתרון: " + fill("quality_1") + "
-";
-        prompt += "הרעיון לפתרון: " + fill("idea") + "
-";
-        prompt += "איך משתמשים בפתרון: " + fill("product_action") + "
-";
-        prompt += "איך השתמשו ב־AI כדי להמחיש את המוצר: " + fill("prototype_description") + "
-";
-        prompt += "מה הדמיית ה־AI מראה על המוצר: " + fill("focus_1") + "
-";
-        prompt += "מה שופר או מה היו רוצים לשפר ברעיון: " + fill("improvement") + "
-";
-        prompt += "מה קורה בהתחלה כשמשתמשים במוצר: " + fill("step_1") + "
-";
-        prompt += "מה קורה אחר כך: " + fill("step_2") + "
-";
-        prompt += "מה התוצאה בסוף: " + fill("step_3") + "
-";
-        prompt += "מה מיוחד ברעיון: " + fill("unique_part") + "
-";
-        prompt += "איך הרעיון עוזר למי שישתמש בו: " + fill("target_value") + "
-";
-        prompt += "למה הרעיון חשוב: " + fill("main_value") + "
-";
+        p += "\n━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "תוכן הפיץ׳:\n";
+        p += "━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "הבעיה או הצורך שבחרו לפתור: " + fill("problem") + "\n";
+        p += "למי הפתרון יכול לעזור: " + fill("audience") + "\n";
+        p += "מתי או איפה הבעיה קורית: " + fill("situation") + "\n";
+        p += "מה קשה במצב הזה: " + fill("difficulty") + "\n";
+        p += "איך הפתרון אמור לעזור: " + fill("main_need") + "\n";
+        p += "מה חשוב שיהיה בפתרון: " + fill("quality_1") + "\n";
+        p += "הרעיון לפתרון: " + fill("idea") + "\n";
+        p += "איך משתמשים בפתרון: " + fill("product_action") + "\n";
+        p += "איך השתמשו ב־אי כדי להמחיש את המוצר: " + fill("prototype_description") + "\n";
+        p += "מה הדמיית ה־אי מראה על המוצר: " + fill("focus_1") + "\n";
+        p += "מה שופר או מה היו רוצים לשפר ברעיון: " + fill("improvement") + "\n";
+        p += "מה קורה בהתחלה כשמשתמשים במוצר: " + fill("step_1") + "\n";
+        p += "מה קורה אחר כך: " + fill("step_2") + "\n";
+        p += "מה התוצאה בסוף: " + fill("step_3") + "\n";
+        p += "מה מיוחד ברעיון: " + fill("unique_part") + "\n";
+        p += "איך הרעיון עוזר למי שישתמש בו: " + fill("target_value") + "\n";
+        p += "למה הרעיון חשוב: " + fill("main_value") + "\n";
 
-        prompt += "\n━━━━━━━━━━━━━━━━━━━━━\n";
-        prompt += "מבנה התוצאה המבוקש:\n";
-        prompt += "━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "\n━━━━━━━━━━━━━━━━━━━━━\n";
+        p += "מבנה התוצאה המבוקש:\n";
+        p += "━━━━━━━━━━━━━━━━━━━━━\n";
         if (count === 1) {
-          prompt += "כתוב פיץ׳ רציף אחד תחת הכותרת: משתתף 1: " + names[0] + "\n";
+          p += "כתוב פיץ׳ רציף אחד תחת הכותרת: משתתף 1: " + names[0] + "\n";
         } else {
-          prompt += "חלק את הפיץ׳ לפי המשתתפים, בדיוק כך:\n";
+          p += "חלק את הפיץ׳ לפי המשתתפים, בדיוק כך:\n";
           names.forEach(function (name, index) {
-            prompt += "משתתף " + (index + 1) + ": " + name + "\n";
+            p += "משתתף " + (index + 1) + ": " + name + "\n";
           });
         }
-        prompt += "אל תוסיף טבלת זמנים. אל תוסיף נאום מעלית. אל תשתמש בניסוח מגדרי של בנות בלבד. אל תכתוב בשפה גבוהה מדי; הפיץ׳ צריך להתאים לתלמידי כיתה ו׳.";
+        p += "אל תוסיף טבלת זמנים. אל תוסיף נאום מעלית. אל תשתמש בניסוח מגדרי של בנות בלבד. אל תכתוב בשפה גבוהה מדי; הפיץ׳ צריך להתאים לתלמידי כיתה ו׳.";
 
-        return prompt;
+        return p;
       }
 
       function showStatus(id, message, isError) {
@@ -1265,7 +1222,7 @@
         function setPastedText(text) {
           var cleaned = cleanText(text);
           if (!cleaned) {
-            showStatus("pasteStatusMessage", "לא זוהו נתונים להדבקה. יש להעתיק קודם את הפיץ׳ מה־AI.", true);
+            showStatus("pasteStatusMessage", "לא זוהו נתונים להדבקה. יש להעתיק קודם את הפיץ׳ מה־אי.", true);
             return;
           }
           target.value = cleaned;
@@ -1278,13 +1235,13 @@
           navigator.clipboard.readText()
             .then(setPastedText)
             .catch(function () {
-              var pasted = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־AI:");
+              var pasted = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־אי:");
               setPastedText(pasted || "");
             });
           return;
         }
 
-        var pastedFallback = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־AI:");
+        var pastedFallback = window.prompt("הדביקו כאן את הפיץ׳ שהתקבל מה־אי:");
         setPastedText(pastedFallback || "");
       }
 
@@ -1316,7 +1273,7 @@
         var names = getStudentNames();
         if (!clean) return [];
 
-        var pattern = /(?:^|\n)\s*משתתף\s*(\d+)\s*[:：-]\s*([^\n]*)\n?/g;
+        var pattern = /(?:^|\n)\s*משתתף\s*(\d+)\s*[::\-]\s*([^\n]*)\n?/g;
         var matches = [];
         var match;
 
@@ -1353,7 +1310,7 @@
         var actions = $("pitchPreviewActions");
 
         if (!fullPitch) {
-          showStatus("pasteStatusMessage", "יש להדביק תחילה את הפיץ׳ שהתקבל מה־AI.", true);
+          showStatus("pasteStatusMessage", "יש להדביק תחילה את הפיץ׳ שהתקבל מה־אי.", true);
           if (preview) preview.style.display = "none";
           if (actions) actions.style.display = "none";
           buildPrintDocument();
@@ -1368,7 +1325,7 @@
 
         cards.forEach(function (card) {
           html += '<section class="preview-card">';
-          html += '<h4>משתתף ' + esc(card.num) + ': ' + esc(card.name || "") + '</h4>';
+          html += '<h4>משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h4>';
           html += '<p>' + esc(card.text) + '</p>';
           html += '</section>';
         });
@@ -1391,14 +1348,13 @@
 
         var pastedText = getValue("fullPitch");
         if (!pastedText) {
-          doc.innerHTML = '<section class="print-doc"><div class="pd-empty">אין פיץ׳ להדפסה. יש להדביק תחילה את הפיץ׳ מה־AI.</div></section>';
+          doc.innerHTML = '<section class="print-doc"><div class="pd-empty">אין פיץ׳ להדפסה. יש להדביק תחילה את הפיץ׳ מה־אי.</div></section>';
           return;
         }
 
         var projectName = getValue("project_name") || "—";
         var names = getStudentNames();
         var cards = parsePitchOutput(pastedText);
-        var count = getStudentCount();
         var html = "";
 
         html += '<section class="print-doc">';
@@ -1408,4 +1364,67 @@
         html += '<p class="print-doc-meta"><strong>שם המיזם:</strong> ' + esc(projectName) + '</p>';
         html += '<p class="print-doc-meta"><strong>משתתפים:</strong></p>';
         html += '<ul class="print-students-list">';
-        for (v
+        for (var i = 0; i < names.length; i++) {
+          html += '<li>' + esc(names[i]) + '</li>';
+        }
+        html += '</ul>';
+        html += '</header>';
+
+        cards.forEach(function (card) {
+          html += '<section class="print-section">';
+          html += '<h2>משתתף ' + esc(String(card.num)) + ': ' + esc(card.name || "") + '</h2>';
+          html += '<p class="' + (cards.length === 1 ? "print-single-pitch" : "print-speaker-text") + '">' + esc(card.text) + '</p>';
+          html += '</section>';
+        });
+
+        html += '</section>';
+        doc.innerHTML = html;
+      }
+
+      function init() {
+        var savedData = readSavedData();
+        var countEl = $("studentCount");
+        if (countEl && savedData.studentCount) {
+          countEl.value = savedData.studentCount;
+        }
+        renderStudentInputs(savedData);
+        applySavedData(savedData);
+        buildPrintDocument();
+
+        if (countEl) {
+          countEl.addEventListener("change", function () {
+            renderStudentInputs();
+            saveAll();
+          });
+        }
+
+        getSaveFields().forEach(function (field) {
+          field.addEventListener("input", saveAll);
+          field.addEventListener("change", saveAll);
+        });
+
+        var generateBtn = $("generateAIPrompt");
+        if (generateBtn) generateBtn.addEventListener("click", handleGeneratePrompt);
+
+        var pasteBtn = $("pastePitchData");
+        if (pasteBtn) pasteBtn.addEventListener("click", pastePitchData);
+
+        var renderBtn = $("renderAIPitch");
+        if (renderBtn) renderBtn.addEventListener("click", renderPreview);
+
+        var printDocBtn = $("printPitchDocumentBtn");
+        if (printDocBtn) printDocBtn.addEventListener("click", function () { window.print(); });
+
+        var printPageBtn = $("printPage");
+        if (printPageBtn) printPageBtn.addEventListener("click", function () { window.print(); });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    }());
+  </script>
+</body>
+</html>
