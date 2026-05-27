@@ -287,6 +287,11 @@ body.panel-open #wrap{
 .batch-special-answer{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:15px;line-height:1.5;white-space:pre-wrap;padding:8px;color:#111}
 @media print{body.batch-print-mode{background:#fff!important}body.batch-print-mode #toolbar,body.batch-print-mode #side-toggle,body.batch-print-mode #side-panel,body.batch-print-mode #wrap,body.batch-print-mode #sel-bar{display:none!important}body.batch-print-mode #batch-print-area{display:block!important;padding:0!important;margin:0!important;background:#fff!important}body.batch-print-mode #batch-print-area.has-pages{display:block!important}body.batch-print-mode .batch-poster-page{box-shadow:none!important;outline:none!important;margin:0!important;page-break-after:always;break-after:page}body.batch-print-mode .batch-static-cell{box-shadow:-5px 5px 0 0 #2fb6d6!important;border:1.5px solid #444!important}-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
+.batch-bg-layer{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0;pointer-events:none}
+.batch-poster-page .batch-footer{z-index:6}
+.batch-static-cell{z-index:10}
+.batch-actions .panel-file-btn{display:flex;align-items:center;justify-content:center}
+
 </style>
 </head>
 <body class="panel-open">
@@ -432,6 +437,14 @@ body.panel-open #wrap{
     <div class="panel-meta">
       <div id="batch-status" class="sb-status warn">בחר פוסטרים מהרשימה כדי להציג אותם ברצף ולהדפיס כ־PDF אחד.</div>
 
+      <label>רקע לרצף PDF</label>
+      <div class="batch-actions">
+        <label class="panel-file-btn" for="batch-bg-up">📁 העלה רקע לרצף</label>
+        <input type="file" id="batch-bg-up" accept="image/*" style="display:none" onchange="loadBatchBg(this)">
+        <button type="button" class="secondary" onclick="useEditorBgForBatch()">רקע מהפוסטר</button>
+        <button type="button" class="secondary" onclick="clearBatchBg()">נקה רקע</button>
+      </div>
+
       <div class="batch-actions">
         <button type="button" onclick="loadBatchPosterList()">↻ טען רשימה</button>
         <button type="button" class="secondary" onclick="setAllBatchPosters(true)">סמן הכל</button>
@@ -446,10 +459,11 @@ body.panel-open #wrap{
       <div class="batch-actions">
         <button type="button" class="load-btn" onclick="previewBatchPosters()">👁 הצג רצף</button>
         <button type="button" class="save-btn" onclick="printBatchPosters()">🖨 הדפס PDF</button>
+        <button type="button" class="secondary" onclick="editSelectedBatchPoster()">✏️ ערוך נבחר</button>
         <button type="button" class="secondary" onclick="clearBatchPreview()">נקה תצוגה</button>
       </div>
 
-      <div class="panel-note in-card">הלשונית הזו לא משנה את הפוסטרים ולא שומרת נתונים. היא רק טוענת פוסטרים נבחרים ומציגה אותם כעמודים רצופים להדפסה.</div>
+      <div class="panel-note in-card">ברצף אפשר להוסיף רקע משותף לכל הדפים. לעריכה מלאה של תוכן/שאלות יש לבחור פוסטר אחד וללחוץ “ערוך נבחר”, לשמור, ואז לחזור לרצף ולרענן.</div>
     </div>
   </section>
 </aside>
@@ -864,9 +878,48 @@ function newPoster(){
 }
 
 
+let batchBgDataUrl='';
 function setBatchStatus(message,type='warn'){
  const el=document.getElementById('batch-status');if(!el)return;
  el.className='sb-status '+type;el.textContent=message
+}
+function applyBatchBackgroundToPreview(){
+ document.querySelectorAll('.batch-bg-layer').forEach(layer=>{
+  layer.style.backgroundImage=batchBgDataUrl?`url("${batchBgDataUrl}")`:'none'
+ })
+}
+function loadBatchBg(input){
+ if(!input.files?.[0])return;
+ const reader=new FileReader();
+ reader.onload=e=>{
+  batchBgDataUrl=e.target.result;
+  applyBatchBackgroundToPreview();
+  setBatchStatus('הרקע נוסף לרצף. לחץ הצג רצף או הדפס PDF כדי לראות אותו בכל הדפים.','ok')
+ };
+ reader.readAsDataURL(input.files[0])
+}
+function clearBatchBg(){
+ batchBgDataUrl='';
+ const input=document.getElementById('batch-bg-up');
+ if(input)input.value='';
+ applyBatchBackgroundToPreview();
+ setBatchStatus('רקע הרצף נוקה.','warn')
+}
+function useEditorBgForBatch(){
+ const bg=document.getElementById('bg-layer')?.style.backgroundImage||'';
+ const match=bg.match(/^url\(["']?(.*?)["']?\)$/);
+ if(!match||!match[1]){alert('אין כרגע רקע בפוסטר העריכה. העלה רקע בלשונית עיצוב או העלה רקע ישירות לרצף.');return}
+ batchBgDataUrl=match[1];
+ applyBatchBackgroundToPreview();
+ setBatchStatus('הרקע מהפוסטר הוחל על רצף ה־PDF.','ok')
+}
+async function editSelectedBatchPoster(){
+ const ids=getSelectedBatchPosterIds();
+ if(ids.length!==1){alert('כדי לערוך, בחר פוסטר אחד בלבד מהרשימה.');return}
+ clearBatchPreview();
+ await loadPosterById(ids[0]);
+ openPanelTab('questions');
+ setBatchStatus('הפוסטר הנבחר נטען לעריכה. לאחר שמירה אפשר לחזור לרצף PDF ולרענן.','ok')
 }
 async function loadBatchPosterList(){
  const client=getSupabaseClient();if(!client)return;
@@ -894,6 +947,10 @@ function renderBatchPosterPage(row){
  const textMap=getTextBoxMap(payload);
  const page=document.createElement('div');
  page.className='batch-poster-page';
+ const bgLayer=document.createElement('div');
+ bgLayer.className='batch-bg-layer';
+ if(batchBgDataUrl)bgLayer.style.backgroundImage=`url("${batchBgDataUrl}")`;
+ page.appendChild(bgLayer);
  const footer=document.createElement('div');
  footer.className='batch-footer';
  footer.textContent=payload.footer||'פוסטר חקר מדעי-טכנולוגי לפתרון בעיה';
