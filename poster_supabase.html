@@ -375,7 +375,7 @@ body.panel-open #wrap{
         <button type="button" class="secondary" onclick="loadPostersList()">↻ רענן רשימה</button>
       </div>
 
-      <div class="panel-note in-card">הרשימה כאן נפרדת לחלוטין מאזור השאלות. כל פוסטר נשמר כרשומה נפרדת ב־Supabase.</div>
+      <div class="panel-note in-card">הרשימה כאן נפרדת לחלוטין מאזור השאלות. כל פוסטר נשמר כרשומה נפרדת ב־Supabase. מבנה התיבות והשאלות נטען מטבלת <code>poster_site_structure</code>, ואם הטבלה אינה זמינה נטען מבנה ברירת המחדל.</div>
     </div>
   </section>
 </aside>
@@ -403,14 +403,16 @@ create table public.poster_submissions (
 2. For a public classroom page, enable RLS and add policies that fit your use case.
    Do not put a service_role key in this file.
 3. Replace the two placeholder values below with your Supabase Project URL and anon/public key.
+4. The poster layout/questions can be loaded from public.poster_site_structure.
 */
 const SUPABASE_URL='https://lmccphquxksnyvhfgsiw.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_-4oLSvf6KUpAVZ9NgvPo9A_Pzra_Vwi';
 const SUPABASE_TABLE='poster_submissions';
+const SUPABASE_STRUCTURE_TABLE='poster_site_structure';
 let supabaseClient=null,currentSubmissionId=null,isSyncingParticipants=false;
 
 const LEFT_X=72,RIGHT_X=414,LEFT_W=306,RIGHT_W=307,FULL_X=72,FULL_W=649,SMALL_IMG_W=145,IMG_GAP=16,ROW_GAP=24,FOOTER_SAFE_TOP=1078;let activeAction=null,selectedCell=null,activeLogoResize=null,selectedTextId=null,nextDynamicId=1,imageBoxAdded=false;const SZ={q:14,h:10,t:13};
-const DEFS=[
+const DEFAULT_DEFS=[
 {id:'c-hdr',type:'header',x:72,y:10,w:649,h:88},{id:'c-meta',type:'meta',x:72,y:106,w:649,h:101},
 {id:'c-prob',type:'text',x:72,y:148,w:306,h:100,q:'הבעיה והצורך',hint:'מה הבעיה שזיהינו? למי היא מפריעה? למה חשוב לפתור אותה?',ph:'תארו את הבעיה והצורך...'},
 {id:'c-org',type:'text',x:414,y:148,w:307,h:100,q:'קהל היעד / המשתמשים',hint:'מי קהל היעד? באיזו סיטואציה הבעיה מופיעה?',ph:'תארו למי הפתרון מיועד...'},
@@ -423,9 +425,70 @@ const DEFS=[
 {id:'c-prot',type:'text',x:414,y:623,w:307,h:160,q:'אב־טיפוס / דגם / המחשה',hint:'מה בנינו או הצגנו כדי להמחיש את הפתרון? איך הוא אמור לפעול?',ph:'תארו את האב־טיפוס או הדגם...'},
 {id:'c-tst',type:'text',x:72,y:791,w:306,h:100,q:'בדיקה והערכה',hint:'מה בדקנו? מה עבד טוב? מה עדיין דורש שיפור?',ph:'בדקנו... עבד טוב... דורש שיפור...'},
 {id:'c-con',type:'text',x:414,y:791,w:307,h:100,q:'מסקנות ולמידה',hint:'מה למדנו מהתהליך? מה היינו משפרים בשלב הבא?',ph:'למדנו כי... בשלב הבא נרצה לשפר...'}
-];
+];;
+let DEFS=DEFAULT_DEFS.map(d=>({...d}));
 function mk(t,c,h){const e=document.createElement(t);if(c)e.className=c;if(h)e.innerHTML=h;return e}function setBox(e,x,y,w,h){e.style.left=x+'px';e.style.top=y+'px';e.style.width=w+'px';e.style.height=h+'px'}function getBox(e){return{x:parseInt(e.style.left)||0,y:parseInt(e.style.top)||0,w:e.offsetWidth,h:e.offsetHeight}}function clamp(v,min,max){return Math.max(min,Math.min(max,v))}function openFileInput(id){const i=document.getElementById(id);if(i)i.click()}function ar(e){e.style.height='auto';e.style.height=e.scrollHeight+'px'}
-function buildPoster(){DEFS.forEach(d=>createCell(d));applyFonts();applyAccentColor();initParticipantsUI();updateMetaBoxWidth();layoutMainBoxes();renderPanel();initSupabaseClient()}
+function cloneDefaultDefs(){return DEFAULT_DEFS.map(d=>({...d}))}
+function normalizeStructureRows(rows){
+ return (rows||[]).map(row=>({
+  id:row.id,
+  type:row.type,
+  x:Number(row.x)||0,
+  y:Number(row.y)||0,
+  w:Number(row.w)||100,
+  h:Number(row.h)||60,
+  q:row.title||undefined,
+  hint:row.hint||undefined,
+  ph:row.placeholder||undefined,
+  lbl:row.image_label||undefined,
+  iid:row.image_id||undefined
+ })).filter(item=>item.id&&item.type)
+}
+async function loadSiteStructureFromSupabase(){
+ const client=getSupabaseClient();
+ if(!client)return null;
+ const {data,error}=await client
+  .from(SUPABASE_STRUCTURE_TABLE)
+  .select('id,sort_order,type,x,y,w,h,title,hint,placeholder,image_label,image_id,is_active')
+  .eq('is_active',true)
+  .order('sort_order',{ascending:true});
+ if(error){
+  setStatus('מבנה הפוסטר לא נטען מ־Supabase. נטען מבנה ברירת מחדל. שגיאה: '+error.message,'warn');
+  console.warn('poster_site_structure load failed:',error);
+  return null;
+ }
+ const defs=normalizeStructureRows(data);
+ if(!defs.length){
+  setStatus('טבלת מבנה הפוסטר ריקה. נטען מבנה ברירת מחדל.','warn');
+  return null;
+ }
+ setStatus('מבנה הפוסטר נטען מ־Supabase.','ok');
+ return defs
+}
+function clearPosterCells(){
+ poster.querySelectorAll('.cell').forEach(cell=>cell.remove());
+ selectedCell=null;
+ selectedTextId=null;
+ activeAction=null;
+ activeLogoResize=null;
+ imageBoxAdded=false;
+ nextDynamicId=1;
+ const bar=document.getElementById('sel-bar');
+ if(bar)bar.style.display='none'
+}
+function buildPoster(){
+ clearPosterCells();
+ DEFS.forEach(d=>createCell(d));
+ applyFonts();applyAccentColor();initParticipantsUI();updateMetaBoxWidth();layoutMainBoxes();renderPanel();initSupabaseClient()
+}
+async function initPosterApp(){
+ initSupabaseClient();
+ const remoteDefs=await loadSiteStructureFromSupabase();
+ DEFS=remoteDefs&&remoteDefs.length?remoteDefs:cloneDefaultDefs();
+ buildPoster();
+ wireGlobalEvents();
+ runSelfTests()
+}
 function layoutMainBoxes(){
  const ids=['c-hdr','c-meta','c-prob','c-org','c-img1','c-bio','c-qst','c-sol','c-proc','c-img2','c-img3','c-prot','c-tst','c-con'];
  const el=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
@@ -728,8 +791,8 @@ function wireCell(cell){cell.querySelector('.drag-handle').addEventListener('poi
 function selectCell(cell){if(selectedCell&&selectedCell!==cell)selectedCell.classList.remove('selected');selectedCell=cell;cell.classList.add('selected');if(cell.dataset.textbox)selectedTextId=cell.id;updateBar(cell);renderPanel()}function updateBar(cell){const b=getBox(cell),bar=document.getElementById('sel-bar');bar.textContent=`מיקום: ${b.x}, ${b.y} | גודל: ${b.w} × ${b.h}`;bar.style.display='block'}
 function wireGlobalEvents(){document.getElementById('q-color').addEventListener('input',applyFonts);document.getElementById('t-color').addEventListener('input',applyFonts);document.getElementById('accent-color').addEventListener('input',applyAccentColor);document.addEventListener('pointermove',e=>{if(activeLogoResize){e.preventDefault();const dx=e.clientX-activeLogoResize.startX,dy=e.clientY-activeLogoResize.startY,delta=Math.max(dx,dy),s=clamp(activeLogoResize.startW+delta,24,140);activeLogoResize.box.style.width=Math.round(s)+'px';activeLogoResize.box.style.height=Math.round(s)+'px';return}if(!activeAction)return;e.preventDefault();const a=activeAction,dx=e.clientX-a.startX,dy=e.clientY-a.startY,c=a.cell;let{x,y,w,h}=a;if(a.mode==='move'){x=clamp(a.x+dx,0,PW-a.w);y=clamp(a.y+dy,0,PH-a.h)}if(a.mode==='resize-right')w=clamp(a.w+dx,MIN_W,PW-a.x);if(a.mode==='resize-left'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x)}if(a.mode==='resize-bottom')h=clamp(a.h+dy,MIN_H,PH-a.y);if(a.mode==='resize-left-bottom'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x);h=clamp(a.h+dy,MIN_H,PH-a.y)}setBox(c,Math.round(x),Math.round(y),Math.round(w),Math.round(h));updateBar(c)},{passive:false});document.addEventListener('pointerup',()=>{if(activeLogoResize){activeLogoResize.box.releasePointerCapture?.(activeLogoResize.pointerId);activeLogoResize=null}if(activeAction){activeAction.cell.releasePointerCapture?.(activeAction.pointerId);activeAction=null}});document.addEventListener('pointercancel',()=>{activeAction=null;activeLogoResize=null});document.addEventListener('pointerdown',e=>{if(!e.target.closest('.cell')&&!e.target.closest('#toolbar')&&!e.target.closest('#side-panel')&&!e.target.closest('#side-toggle')){if(selectedCell)selectedCell.classList.remove('selected');selectedCell=null;selectedTextId=null;document.getElementById('sel-bar').style.display='none';renderPanel()}});document.getElementById('bg-up').addEventListener('change',function(){if(!this.files?.[0])return;const r=new FileReader();r.onload=e=>document.getElementById('bg-layer').style.backgroundImage=`url(${e.target.result})`;r.readAsDataURL(this.files[0])});document.getElementById('bg-overlay').style.background='transparent'}
 function loadImg(input,imgId,phId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId);img.src=e.target.result;img.classList.add('shown');document.getElementById(phId).style.display='none'};r.readAsDataURL(input.files[0])}function loadLogo(input,imgId,txtId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId),txt=document.getElementById(txtId);img.src=e.target.result;img.style.display='block';if(txt)txt.style.display='none'};r.readAsDataURL(input.files[0])}function logoKey(event,inputId){if(event.key==='Enter'||event.key===' '){event.preventDefault();openFileInput(inputId)}}function startLogoResize(event,boxId){const box=document.getElementById(boxId);if(!box)return;event.preventDefault();event.stopPropagation();activeLogoResize={box,pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,startW:box.offsetWidth,startH:box.offsetHeight};box.setPointerCapture?.(event.pointerId)}function clearBg(){document.getElementById('bg-layer').style.backgroundImage='none';document.getElementById('bg-up').value=''}
-function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('poster select exists',!!document.getElementById('poster-select'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
-buildPoster();wireGlobalEvents();runSelfTests();
+function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('site structure loader exists',typeof loadSiteStructureFromSupabase==='function');assert('poster select exists',!!document.getElementById('poster-select'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
+initPosterApp();
 </script>
 </body>
 </html>
