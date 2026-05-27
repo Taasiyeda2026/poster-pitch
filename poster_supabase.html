@@ -14,7 +14,7 @@ button,input,textarea{font-family:'Heebo',sans-serif}
 #toolbar{position:fixed;top:0;right:0;left:0;z-index:2000;background:#1a1a2e;color:#fff;padding:6px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px}
 .tb-lbl{font-weight:700;color:#aac4ff;white-space:nowrap;font-size:12px}
 #toolbar button,#toolbar label.btn{background:#2d4a8a;color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:12px;cursor:pointer;white-space:nowrap}
-#toolbar button:hover,#toolbar label.btn:hover{background:#3a5fa8}#toolbar button.save-btn{background:#067647}#toolbar button.save-btn:hover{background:#079455}#toolbar button.load-btn{background:#7a4cc2}#toolbar button.load-btn:hover{background:#8e5bda}
+#toolbar button:hover,#toolbar label.btn:hover{background:#3a5fa8}#toolbar button.save-btn{background:#067647}#toolbar button.save-btn:hover{background:#079455}#toolbar button.load-btn{background:#7a4cc2}#toolbar button.load-btn:hover{background:#8e5bda}#toolbar button.refresh-btn{background:#475467}#toolbar button.refresh-btn:hover{background:#667085}
 .tsep{width:1px;height:22px;background:#444;flex-shrink:0}.hint{font-size:11px;color:#b8b8c8}.szc{display:flex;align-items:center;gap:4px}.szc button{width:20px;height:20px;padding:0;font-size:13px;line-height:1;border-radius:3px}.szc span{min-width:28px;text-align:center;font-size:12px;color:#fff}
 
 #side-toggle{position:fixed;top:58px;right:14px;z-index:2100;border:none;border-radius:999px;background:#2d4a8a;color:#fff;font-weight:700;font-size:12px;padding:8px 14px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.22)}
@@ -22,8 +22,8 @@ button,input,textarea{font-family:'Heebo',sans-serif}
 body.panel-open #side-panel{transform:translateX(0)}
 .panel-head{padding:14px;background:#1a1a2e;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}.panel-head strong{font-size:15px}.panel-head button{border:none;background:rgba(255,255,255,.12);color:#fff;border-radius:8px;padding:4px 9px;cursor:pointer}
 .panel-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 12px;border-bottom:1px solid rgba(45,74,138,.14)}
-.panel-actions button,.panel-card button{border:none;border-radius:8px;background:#2d4a8a;color:#fff;padding:4px 7px;cursor:pointer;font-size:10.5px;font-weight:700;line-height:1.05;min-height:28px}.panel-actions button:hover,.panel-card button:hover{background:#3a5fa8}
-#panel-list{overflow:visible;padding:12px;display:flex;flex-direction:column;gap:10px}.panel-meta{padding:12px;border-bottom:1px solid rgba(45,74,138,.14);display:flex;flex-direction:column;gap:8px;background:#eef4ff}.panel-meta label{font-size:11px;font-weight:800;color:#1a1a2e}.panel-meta input,.panel-meta select{width:100%;border:1px solid rgba(45,74,138,.22);border-radius:10px;padding:7px 8px;font-size:12px;outline:none;background:#fff}.panel-meta input:focus,.panel-meta select:focus{border-color:#2d7ff9}.participants-grid{display:grid;grid-template-columns:1fr;gap:6px}.participant-row{display:grid;grid-template-columns:74px 1fr;gap:6px;align-items:center}.participant-row span{font-size:11px;font-weight:800;color:#536079}.sb-status{font-size:11px;line-height:1.4;color:#536079;background:#fff;border:1px solid rgba(45,74,138,.14);border-radius:10px;padding:7px 8px}.sb-status.ok{color:#067647;background:#ecfdf3;border-color:#abefc6}.sb-status.err{color:#b42318;background:#fef3f2;border-color:#fecdca}.sb-status.warn{color:#93370d;background:#fffaeb;border-color:#fedf89}.panel-card{border:1px solid rgba(45,127,249,.22);border-radius:16px;background:#fff;box-shadow:0 7px 18px rgba(45,127,249,.12);padding:10px;display:flex;flex-direction:column;gap:7px}.panel-card.active{border-color:rgba(45,127,249,.75);box-shadow:0 8px 22px rgba(45,127,249,.22)}.panel-card label{font-size:11px;font-weight:800;color:#1a1a2e}.panel-card input,.panel-card textarea{width:100%;border:1px solid rgba(45,74,138,.22);border-radius:10px;padding:7px 8px;font-size:12px;outline:none;background:#fbfcff}.panel-card textarea{min-height:68px;resize:vertical;line-height:1.45}.panel-card input:focus,.panel-card textarea:focus{border-color:#2d7ff9;background:#fff}.panel-card-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}.panel-card button.danger{background:#b42318}.panel-card button.danger:hover{background:#d92d20}.panel-actions button:disabled{opacity:.45;cursor:not-allowed;background:#6b7280}.panel-note{padding:0 12px 12px;color:#5f6c80;font-size:11px;line-height:1.45}
+.panel-actions button,.panel-card button,.poster-list-actions button{border:none;border-radius:8px;background:#2d4a8a;color:#fff;padding:4px 7px;cursor:pointer;font-size:10.5px;font-weight:700;line-height:1.05;min-height:28px}.panel-actions button:hover,.panel-card button:hover,.poster-list-actions button:hover{background:#3a5fa8}
+#panel-list{overflow:visible;padding:12px;display:flex;flex-direction:column;gap:10px}.panel-meta{padding:12px;border-bottom:1px solid rgba(45,74,138,.14);display:flex;flex-direction:column;gap:8px;background:#eef4ff}.panel-meta label{font-size:11px;font-weight:800;color:#1a1a2e}.panel-meta input,.panel-meta select{width:100%;border:1px solid rgba(45,74,138,.22);border-radius:10px;padding:7px 8px;font-size:12px;outline:none;background:#fff}.panel-meta input:focus,.panel-meta select:focus{border-color:#2d7ff9}.participants-grid{display:grid;grid-template-columns:1fr;gap:6px}.participant-row{display:grid;grid-template-columns:74px 1fr;gap:6px;align-items:center}.participant-row span{font-size:11px;font-weight:800;color:#536079}.poster-list-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.poster-list-actions button.secondary{background:#475467}.poster-list-actions button.secondary:hover{background:#667085}.sb-status{font-size:11px;line-height:1.4;color:#536079;background:#fff;border:1px solid rgba(45,74,138,.14);border-radius:10px;padding:7px 8px}.sb-status.ok{color:#067647;background:#ecfdf3;border-color:#abefc6}.sb-status.err{color:#b42318;background:#fef3f2;border-color:#fecdca}.sb-status.warn{color:#93370d;background:#fffaeb;border-color:#fedf89}.panel-card{border:1px solid rgba(45,127,249,.22);border-radius:16px;background:#fff;box-shadow:0 7px 18px rgba(45,127,249,.12);padding:10px;display:flex;flex-direction:column;gap:7px}.panel-card.active{border-color:rgba(45,127,249,.75);box-shadow:0 8px 22px rgba(45,127,249,.22)}.panel-card label{font-size:11px;font-weight:800;color:#1a1a2e}.panel-card input,.panel-card textarea{width:100%;border:1px solid rgba(45,74,138,.22);border-radius:10px;padding:7px 8px;font-size:12px;outline:none;background:#fbfcff}.panel-card textarea{min-height:68px;resize:vertical;line-height:1.45}.panel-card input:focus,.panel-card textarea:focus{border-color:#2d7ff9;background:#fff}.panel-card-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}.panel-card button.danger{background:#b42318}.panel-card button.danger:hover{background:#d92d20}.panel-actions button:disabled{opacity:.45;cursor:not-allowed;background:#6b7280}.panel-note{padding:0 12px 12px;color:#5f6c80;font-size:11px;line-height:1.45}
 
 #wrap{margin-top:50px;display:flex;justify-content:center;align-items:flex-start;padding:24px;min-height:calc(100vh - 50px);transition:padding-right .25s ease}body.panel-open #wrap{padding-right:388px}
 #poster{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;flex-shrink:0;box-shadow:0 4px 24px rgba(0,0,0,.35);outline:3px solid #2d4a8a}
@@ -44,67 +44,342 @@ body.panel-open #side-panel{transform:translateX(0)}
 .tb-home-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;text-decoration:none;font-size:16px;font-weight:700;border:1px solid rgba(255,255,255,.3);flex-shrink:0;transition:background .15s ease;}
 .tb-home-btn:hover{background:rgba(255,255,255,.3);}
 @media print{@page{size:A4 portrait;margin:0}body{background:none}#toolbar,#sel-bar,#side-toggle,#side-panel{display:none!important}#wrap{margin-top:0;padding:0!important;background:none;display:block}#poster{box-shadow:none;outline:none}.drag-handle,.res-r,.res-l,.res-b,.res-br,.logo-resize,.cell-hint{display:none!important}.cell{border:1.5px solid #444!important;box-shadow:-5px 5px 0 0 var(--accent)!important;background:#fff!important;user-select:text}.cell.selected{border:1.5px solid #444!important;box-shadow:-5px 5px 0 0 var(--accent)!important}.cell::before{display:none!important}.logo-box,.logo-box img{border:none!important;outline:none!important;box-shadow:none!important;background:transparent!important}.logo-box::after{display:none!important}.hdr-title,.mf input,.ftr-row input,.cell textarea{border-bottom:none!important}#poster-footer{display:flex!important;border-top:1px solid var(--footer-accent,#2fb6d6)!important;color:var(--footer-accent,#2fb6d6)!important}-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+/* Clean header + tabbed side panel */
+.clean-toolbar{
+  min-height:54px;
+  padding:8px 16px!important;
+  justify-content:space-between;
+  gap:14px!important;
+  background:linear-gradient(90deg,#12172f,#1a1a2e)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+}
+.toolbar-brand{display:flex;align-items:center;gap:10px;min-width:240px}
+.brand-mark{width:30px;height:30px;border-radius:10px;background:#2d7ff9;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 6px 14px rgba(45,127,249,.28)}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text strong{font-size:14px;font-weight:900;color:#fff}
+.brand-text small{font-size:10.5px;color:#b8c7ff;margin-top:3px}
+.toolbar-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.toolbar-actions button{border-radius:999px!important;padding:6px 12px!important;font-size:11.5px!important;min-height:30px}
+.toolbar-actions .save-btn{background:#067647!important}
+.toolbar-actions .save-btn:hover{background:#079455!important}
+#side-toggle{top:66px!important}
+#side-panel{top:54px!important;width:390px!important}
+body.panel-open #wrap{padding-right:418px!important}
+.panel-head{padding:14px 16px!important}
+.panel-head>div{display:flex;flex-direction:column;gap:3px}
+.panel-head span{font-size:11px;color:#b8c7ff}
+.panel-tabs{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:6px;padding:10px 12px;background:#f7f9ff;border-bottom:1px solid rgba(45,74,138,.14)}
+.panel-tab{border:1px solid rgba(45,74,138,.18);background:#fff;color:#1a1a2e;border-radius:12px;padding:8px 6px;cursor:pointer;font-size:12px;font-weight:900}
+.panel-tab:hover{border-color:#2d7ff9;background:#eef4ff}
+.panel-tab.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;box-shadow:0 6px 14px rgba(26,26,46,.18)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+.panel-section-title{padding:14px 14px 4px;font-size:13px;font-weight:900;color:#1a1a2e}
+.design-actions,.management-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.panel-file-btn,.design-actions button,.management-actions button,.poster-list-actions button,.side-stepper button{
+  border:none;border-radius:10px;background:#2d4a8a;color:#fff;padding:7px 9px;cursor:pointer;font-size:11.5px;font-weight:800;text-align:center;line-height:1.1;min-height:32px;
+}
+.panel-file-btn:hover,.design-actions button:hover,.management-actions button:hover,.poster-list-actions button:hover,.side-stepper button:hover{background:#3a5fa8}
+button.secondary,.poster-list-actions button.secondary{background:#475467!important}
+button.secondary:hover,.poster-list-actions button.secondary:hover{background:#667085!important}
+.management-actions .save-btn{background:#067647!important}
+.management-actions .save-btn:hover{background:#079455!important}
+.poster-list-actions .load-btn{background:#7a4cc2!important}
+.poster-list-actions .load-btn:hover{background:#8e5bda!important}
+.side-stepper{display:grid;grid-template-columns:40px 1fr 40px;gap:7px;align-items:center}
+.side-stepper span{height:32px;border-radius:10px;background:#fff;border:1px solid rgba(45,74,138,.22);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#1a1a2e}
+.panel-meta input.side-color{height:38px;padding:4px;cursor:pointer}
+.panel-note.in-card{padding:8px 0 0!important;border-top:1px solid rgba(45,74,138,.12);margin-top:2px}
+.questions-actions{grid-template-columns:1fr 1fr!important}
+@media print{.clean-toolbar,.panel-tabs{display:none!important}}
+
+
+/* Compact side panel controls */
+#side-panel{
+  width:360px!important;
+}
+body.panel-open #wrap{
+  padding-right:388px!important;
+}
+.panel-head{
+  padding:9px 12px!important;
+  min-height:42px!important;
+}
+.panel-head strong{
+  font-size:13px!important;
+}
+.panel-head span{
+  font-size:10px!important;
+}
+.panel-head button{
+  border-radius:7px!important;
+  padding:3px 8px!important;
+  font-size:10.5px!important;
+  min-height:24px!important;
+}
+
+.panel-tabs{
+  gap:4px!important;
+  padding:6px 8px!important;
+}
+.panel-tab{
+  border-radius:8px!important;
+  padding:5px 4px!important;
+  font-size:10.8px!important;
+  min-height:28px!important;
+}
+
+.panel-section-title{
+  padding:8px 10px 3px!important;
+  font-size:11.5px!important;
+}
+
+.panel-meta{
+  padding:8px 10px!important;
+  gap:5px!important;
+}
+.panel-meta label{
+  font-size:10.2px!important;
+  line-height:1.1!important;
+}
+.panel-meta input,
+.panel-meta select,
+.panel-card input,
+.panel-card textarea,
+#poster-select{
+  border-radius:7px!important;
+  padding:5px 7px!important;
+  font-size:11px!important;
+  min-height:26px!important;
+}
+.panel-meta input.side-color{
+  height:28px!important;
+  padding:2px 4px!important;
+}
+
+.design-actions,
+.management-actions,
+.poster-list-actions,
+.panel-actions{
+  gap:5px!important;
+}
+.panel-file-btn,
+.design-actions button,
+.management-actions button,
+.poster-list-actions button,
+.panel-actions button,
+.panel-card button,
+.side-stepper button{
+  border-radius:7px!important;
+  padding:4px 6px!important;
+  font-size:10.3px!important;
+  min-height:24px!important;
+  line-height:1.05!important;
+}
+
+.side-stepper{
+  grid-template-columns:32px 1fr 32px!important;
+  gap:5px!important;
+}
+.side-stepper span{
+  height:26px!important;
+  border-radius:7px!important;
+  font-size:11.5px!important;
+}
+
+.participants-grid{
+  grid-template-columns:1fr 1fr!important;
+  gap:5px!important;
+}
+.participant-row{
+  grid-template-columns:42px 1fr!important;
+  gap:4px!important;
+}
+.participant-row span{
+  font-size:9.8px!important;
+}
+
+#panel-list{
+  padding:8px 10px!important;
+  gap:7px!important;
+}
+.panel-card{
+  border-radius:10px!important;
+  padding:7px!important;
+  gap:5px!important;
+  box-shadow:0 4px 10px rgba(45,127,249,.08)!important;
+}
+.panel-card.active{
+  box-shadow:0 5px 12px rgba(45,127,249,.14)!important;
+}
+.panel-card label{
+  font-size:10px!important;
+  line-height:1.1!important;
+}
+.panel-card textarea{
+  min-height:46px!important;
+  line-height:1.32!important;
+  resize:vertical!important;
+}
+.panel-card-actions{
+  gap:4px!important;
+}
+.sb-status{
+  border-radius:7px!important;
+  padding:5px 7px!important;
+  font-size:10.2px!important;
+  line-height:1.25!important;
+}
+.panel-note{
+  font-size:10px!important;
+  line-height:1.28!important;
+  padding:0 10px 8px!important;
+}
+.panel-note.in-card{
+  padding:6px 0 0!important;
+}
+
 </style>
 </head>
 <body class="panel-open">
-<div id="toolbar">
-  <span class="tb-lbl">רקע:</span><label class="btn" for="bg-up">📁 העלה רקע</label><input type="file" id="bg-up" accept="image/*" style="display:none"><button type="button" onclick="clearBg()">🗑 נקה</button>
-  <div class="tsep"></div>
-  <span class="tb-lbl">כותרות:</span><div class="szc"><button type="button" onclick="chSz('q',-1)">−</button><span id="q-v">14</span><button type="button" onclick="chSz('q',1)">+</button></div>
-  <span class="tb-lbl">צבע כותרות:</span><input type="color" id="q-color" value="#1a1a2e" title="צבע כותרות" style="width:30px;height:24px;border:none;background:transparent;cursor:pointer">
-  <span class="tb-lbl">טקסט:</span><div class="szc"><button type="button" onclick="chSz('t',-1)">−</button><span id="t-v">13</span><button type="button" onclick="chSz('t',1)">+</button></div>
-  <span class="tb-lbl">צבע טקסט:</span><input type="color" id="t-color" value="#111111" title="צבע טקסט" style="width:30px;height:24px;border:none;background:transparent;cursor:pointer">
-  <span class="tb-lbl">צבע מסגרת:</span><input type="color" id="accent-color" value="#2fb6d6" title="צבע מסגרת ועומק" style="width:30px;height:24px;border:none;background:transparent;cursor:pointer"><div class="tsep"></div>
-  <button type="button" onclick="window.print()">🖨 הדפס / PDF</button>
-  <div class="tsep"></div>
-  <span class="tb-lbl">Supabase:</span><button type="button" class="save-btn" onclick="savePosterToSupabase()">💾 שמור</button><button type="button" class="load-btn" onclick="loadLatestPosterFromSupabase()">📥 טען אחרון</button><button type="button" onclick="newPoster()">🆕 חדש</button>
-  <div class="tsep"></div>
-  <a href="index.html" class="tb-home-btn" title="חזרה לעמוד הראשי" aria-label="חזרה לעמוד הראשי">⌂</a>
+<div id="toolbar" class="clean-toolbar">
+  <div class="toolbar-brand">
+    <span class="brand-mark">✦</span>
+    <div class="brand-text">
+      <strong>פוסטר חקר מדעי-טכנולוגי</strong>
+      <small>עריכה, שמירה וטעינה מתוך Supabase</small>
+    </div>
+  </div>
+  <div class="toolbar-actions">
+    <button type="button" onclick="openPanelTab('design')">עיצוב</button>
+    <button type="button" onclick="openPanelTab('questions')">שאלות</button>
+    <button type="button" onclick="openPanelTab('management')">ניהול</button>
+    <button type="button" class="save-btn" onclick="savePosterToSupabase()">💾 שמור</button>
+    <button type="button" onclick="window.print()">🖨 PDF</button>
+    <a href="index.html" class="tb-home-btn" title="חזרה לעמוד הראשי" aria-label="חזרה לעמוד הראשי">⌂</a>
+  </div>
 </div>
-<button id="side-toggle" type="button" onclick="togglePanel()">☰ שאלות ותשובות</button>
-<aside id="side-panel" aria-label="חלון שאלות ותשובות">
-  <div class="panel-head"><strong>שאלות ותשובות</strong><button type="button" onclick="togglePanel()">סגור</button></div>
-  <div class="panel-meta">
-    <label>שם המיזם / הפתרון</label>
-    <input id="side-project" type="text" placeholder="שם המיזם" oninput="updateMetaFromPanel('project', this.value)">
-
-    <label>כיתה</label>
-    <input id="side-class" type="text" placeholder="ה1" oninput="updateMetaFromPanel('class', this.value)">
-
-    <label>שם בית הספר</label>
-    <input id="side-school" type="text" placeholder="שם בית הספר" oninput="updateMetaFromPanel('school', this.value)">
-
-    <label>מספר משתתפים</label>
-    <select id="participants-count" onchange="setParticipantsCount(this.value)">
-      <option value="1">1 משתתף/ת</option>
-      <option value="2">2 משתתפים</option>
-      <option value="3">3 משתתפים</option>
-      <option value="4">4 משתתפים</option>
-      <option value="5">5 משתתפים</option>
-      <option value="6">6 משתתפים</option>
-      <option value="7">7 משתתפים</option>
-      <option value="8">8 משתתפים</option>
-      <option value="9">9 משתתפים</option>
-      <option value="10">10 משתתפים</option>
-      <option value="11">11 משתתפים</option>
-      <option value="12">12 משתתפים</option>
-    </select>
-
-    <label>שמות המשתתפים</label>
-    <div id="participants-fields" class="participants-grid"></div>
-    <input id="side-students" type="hidden">
-
-    <div id="supabase-status" class="sb-status warn">יש להגדיר SUPABASE_URL ו־SUPABASE_ANON_KEY בתוך הקוד לפני שמירה.</div>
+<button id="side-toggle" type="button" onclick="togglePanel()">☰ לוח עריכה</button>
+<aside id="side-panel" aria-label="לוח עריכה לפוסטר">
+  <div class="panel-head">
+    <div>
+      <strong>לוח עריכה</strong>
+      <span>בחר לשונית לעבודה נקייה</span>
+    </div>
+    <button type="button" onclick="togglePanel()">סגור</button>
   </div>
-  <div class="panel-actions">
-    <button type="button" onclick="addQuestionBox()">+ הוסף שאלה</button>
-    <button type="button" onclick="addSingleImageBox()">+ תיבת תמונה</button>
-    <button type="button" onclick="savePosterToSupabase()">💾 שמור</button>
-    <button type="button" onclick="loadLatestPosterFromSupabase()">📥 טען אחרון</button>
+
+  <div class="panel-tabs" role="tablist" aria-label="לשוניות עריכת פוסטר">
+    <button type="button" class="panel-tab active" data-tab="design" onclick="openPanelTab('design')" role="tab" aria-selected="true">עיצוב</button>
+    <button type="button" class="panel-tab" data-tab="questions" onclick="openPanelTab('questions')" role="tab" aria-selected="false">שאלות</button>
+    <button type="button" class="panel-tab" data-tab="management" onclick="openPanelTab('management')" role="tab" aria-selected="false">רשימת ניהול</button>
   </div>
-  <div id="panel-list"></div>
-  <div class="panel-note">כל שינוי בשאלה או בתשובה כאן מתעדכן אוטומטית בתוך התיבה בפוסטר. אפשר לערוך גם ישירות בפוסטר, והחלון יתעדכן בהתאם.</div>
+
+  <section id="tab-design" class="tab-pane active" role="tabpanel">
+    <div class="panel-section-title">עיצוב הפוסטר</div>
+    <div class="panel-meta">
+      <label>רקע הפוסטר</label>
+      <div class="design-actions">
+        <label class="panel-file-btn" for="bg-up">📁 העלה רקע</label>
+        <input type="file" id="bg-up" accept="image/*" style="display:none">
+        <button type="button" class="secondary" onclick="clearBg()">נקה רקע</button>
+      </div>
+
+      <label>גודל כותרות</label>
+      <div class="side-stepper">
+        <button type="button" onclick="chSz('q',-1)">−</button>
+        <span id="q-v">14</span>
+        <button type="button" onclick="chSz('q',1)">+</button>
+      </div>
+
+      <label>צבע כותרות</label>
+      <input type="color" id="q-color" value="#1a1a2e" title="צבע כותרות" class="side-color">
+
+      <label>גודל טקסט</label>
+      <div class="side-stepper">
+        <button type="button" onclick="chSz('t',-1)">−</button>
+        <span id="t-v">13</span>
+        <button type="button" onclick="chSz('t',1)">+</button>
+      </div>
+
+      <label>צבע טקסט</label>
+      <input type="color" id="t-color" value="#111111" title="צבע טקסט" class="side-color">
+
+      <label>צבע מסגרת ועומק</label>
+      <input type="color" id="accent-color" value="#2fb6d6" title="צבע מסגרת ועומק" class="side-color">
+
+      <div class="panel-note in-card">העיצוב משפיע על כל תיבות הפוסטר, בלי לשנות את התוכן שכבר הוזן.</div>
+    </div>
+  </section>
+
+  <section id="tab-questions" class="tab-pane" role="tabpanel">
+    <div class="panel-section-title">שאלות ותשובות</div>
+    <div class="panel-meta">
+      <label>שם המיזם / הפתרון</label>
+      <input id="side-project" type="text" placeholder="שם המיזם" oninput="updateMetaFromPanel('project', this.value)">
+
+      <label>כיתה</label>
+      <input id="side-class" type="text" placeholder="ה1" oninput="updateMetaFromPanel('class', this.value)">
+
+      <label>שם בית הספר</label>
+      <input id="side-school" type="text" placeholder="שם בית הספר" oninput="updateMetaFromPanel('school', this.value)">
+
+      <label>מספר משתתפים</label>
+      <select id="participants-count" onchange="setParticipantsCount(this.value)">
+        <option value="1">1 משתתף/ת</option>
+        <option value="2">2 משתתפים</option>
+        <option value="3">3 משתתפים</option>
+        <option value="4">4 משתתפים</option>
+        <option value="5">5 משתתפים</option>
+        <option value="6">6 משתתפים</option>
+        <option value="7">7 משתתפים</option>
+        <option value="8">8 משתתפים</option>
+        <option value="9">9 משתתפים</option>
+        <option value="10">10 משתתפים</option>
+        <option value="11">11 משתתפים</option>
+        <option value="12">12 משתתפים</option>
+      </select>
+
+      <label>שמות המשתתפים</label>
+      <div id="participants-fields" class="participants-grid"></div>
+      <input id="side-students" type="hidden">
+    </div>
+
+    <div class="panel-actions questions-actions">
+      <button type="button" onclick="addQuestionBox()">+ הוסף שאלה</button>
+      <button type="button" onclick="addSingleImageBox()">+ תיבת תמונה</button>
+    </div>
+
+    <div id="panel-list"></div>
+    <div class="panel-note">כל שינוי בשאלה או בתשובה כאן מתעדכן אוטומטית בתוך התיבה בפוסטר. אפשר לערוך גם ישירות בפוסטר, והחלון יתעדכן בהתאם.</div>
+  </section>
+
+  <section id="tab-management" class="tab-pane" role="tabpanel">
+    <div class="panel-section-title">רשימת ניהול</div>
+    <div class="panel-meta">
+      <div id="supabase-status" class="sb-status warn">יש להגדיר SUPABASE_URL ו־SUPABASE_ANON_KEY בתוך הקוד לפני שמירה.</div>
+
+      <div class="management-actions main-actions">
+        <button type="button" class="save-btn" onclick="savePosterToSupabase()">💾 שמור פוסטר</button>
+        <button type="button" onclick="newPoster()">🆕 פוסטר חדש</button>
+      </div>
+
+      <label>פוסטרים שמורים</label>
+      <select id="poster-select">
+        <option value="">בחר פוסטר שמור...</option>
+      </select>
+
+      <div class="poster-list-actions">
+        <button type="button" class="load-btn" onclick="loadSelectedPosterFromSupabase()">📥 טען נבחר</button>
+        <button type="button" class="secondary" onclick="loadPostersList()">↻ רענן רשימה</button>
+      </div>
+
+      <div class="panel-note in-card">הרשימה כאן נפרדת לחלוטין מאזור השאלות. כל פוסטר נשמר כרשומה נפרדת ב־Supabase.</div>
+    </div>
+  </section>
 </aside>
+
 <div id="wrap"><div id="poster"><div id="bg-layer"></div><div id="bg-overlay"></div><div id="poster-footer">פוסטר חקר מדעי-טכנולוגי לפתרון בעיה</div></div></div><div id="sel-bar"></div>
 <script>
 const poster=document.getElementById('poster');const PW=794,PH=1123,MIN_W=80,MIN_H=44;
@@ -258,7 +533,8 @@ function initSupabaseClient(){
   setStatus('יש להגדיר SUPABASE_URL ו־SUPABASE_ANON_KEY בתוך הקוד לפני שמירה.','warn');return null
  }
  supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
- setStatus('Supabase מחובר. אפשר לשמור ולטעון פוסטרים.','ok');
+ setStatus('Supabase מחובר. אפשר לשמור, לפתוח פוסטר חדש ולטעון פוסטרים שונים.','ok');
+ loadPostersList();
  return supabaseClient
 }
 function getSupabaseClient(){
@@ -323,7 +599,52 @@ async function savePosterToSupabase(){
  }
  if(result.error){setStatus('שגיאה בשמירה: '+result.error.message,'err');alert('שגיאה בשמירה: '+result.error.message);return}
  currentSubmissionId=result.data.id;
+ await loadPostersList(currentSubmissionId);
  setStatus('הפוסטר נשמר בהצלחה. מזהה: '+currentSubmissionId,'ok')
+}
+function posterOptionLabel(row){
+ const name=row.project_name||'פוסטר ללא שם';
+ const meta=[row.school_name,row.class_name].filter(Boolean).join(' · ');
+ const dateValue=row.updated_at||row.created_at;
+ let date='';
+ if(dateValue){
+  try{date=new Intl.DateTimeFormat('he-IL',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(dateValue))}catch(e){date=''}
+ }
+ return [name,meta,date].filter(Boolean).join(' | ')
+}
+async function loadPostersList(selectedId=currentSubmissionId){
+ const client=getSupabaseClient();if(!client)return;
+ const select=document.getElementById('poster-select');
+ if(!select)return;
+ const currentValue=selectedId||select.value||'';
+ select.innerHTML='<option value="">טוען פוסטרים...</option>';
+ const {data,error}=await client.from(SUPABASE_TABLE).select('id,project_name,class_name,school_name,participants_count,students,created_at,updated_at').order('updated_at',{ascending:false}).limit(100);
+ if(error){select.innerHTML='<option value="">שגיאה בטעינת הרשימה</option>';setStatus('שגיאה בטעינת רשימת הפוסטרים: '+error.message,'err');return}
+ select.innerHTML='<option value="">בחר פוסטר שמור...</option>';
+ (data||[]).forEach(row=>{
+  const opt=document.createElement('option');
+  opt.value=row.id;
+  opt.textContent=posterOptionLabel(row);
+  select.appendChild(opt)
+ });
+ if(currentValue&&Array.from(select.options).some(o=>o.value===currentValue))select.value=currentValue;
+ setStatus((data||[]).length?'רשימת הפוסטרים נטענה. אפשר לבחור פוסטר ולטעון אותו.':'אין עדיין פוסטרים שמורים.','ok')
+}
+async function loadSelectedPosterFromSupabase(){
+ const select=document.getElementById('poster-select');
+ const id=select?.value||'';
+ if(!id){alert('בחר פוסטר מהרשימה לפני טעינה.');return}
+ await loadPosterById(id)
+}
+async function loadPosterById(id){
+ const client=getSupabaseClient();if(!client)return;
+ setStatus('טוען פוסטר נבחר...','warn');
+ const {data,error}=await client.from(SUPABASE_TABLE).select('*').eq('id',id).maybeSingle();
+ if(error){setStatus('שגיאה בטעינה: '+error.message,'err');alert('שגיאה בטעינה: '+error.message);return}
+ if(!data){setStatus('הפוסטר שנבחר לא נמצא.','warn');alert('הפוסטר שנבחר לא נמצא.');await loadPostersList();return}
+ restorePosterData(data);
+ const select=document.getElementById('poster-select');if(select)select.value=data.id;
+ setStatus('הפוסטר הנבחר נטען בהצלחה.','ok')
 }
 async function loadLatestPosterFromSupabase(){
  const client=getSupabaseClient();if(!client)return;
@@ -332,6 +653,7 @@ async function loadLatestPosterFromSupabase(){
  if(error){setStatus('שגיאה בטעינה: '+error.message,'err');alert('שגיאה בטעינה: '+error.message);return}
  if(!data){setStatus('לא נמצאו פוסטרים שמורים.','warn');alert('לא נמצאו פוסטרים שמורים.');return}
  restorePosterData(data);
+ const select=document.getElementById('poster-select');if(select)select.value=data.id;
  setStatus('הפוסטר האחרון נטען בהצלחה.','ok')
 }
 function clearDynamicTextBoxes(){
@@ -382,11 +704,21 @@ function newPoster(){
  document.getElementById('side-class').value='';
  document.getElementById('side-school').value='';
  setParticipantsCount(1,[]);
+ const posterSelect=document.getElementById('poster-select');if(posterSelect)posterSelect.value='';
  document.querySelectorAll('.cell[data-textbox="1"] textarea').forEach(t=>{t.value='';ar(t)});
  clearDynamicTextBoxes();
  renderPanel();layoutMainBoxes();setStatus('נפתח פוסטר חדש.','ok')
 }
 
+function openPanelTab(tabName){
+ document.body.classList.add('panel-open');
+ document.querySelectorAll('.panel-tab').forEach(btn=>{
+  const active=btn.dataset.tab===tabName;
+  btn.classList.toggle('active',active);
+  btn.setAttribute('aria-selected',active?'true':'false')
+ });
+ document.querySelectorAll('.tab-pane').forEach(pane=>pane.classList.toggle('active',pane.id==='tab-'+tabName));
+}
 function togglePanel(){document.body.classList.toggle('panel-open')}
 function chSz(type,delta){const max={q:26,t:24}[type],min={q:9,t:9}[type];if(max===undefined)return;SZ[type]=Math.min(max,Math.max(min,SZ[type]+delta));document.getElementById(type+'-v').textContent=SZ[type];applyFonts()}function applyAccentColor(){const color=document.getElementById('accent-color')?.value||'#2fb6d6';document.querySelectorAll('.cell').forEach(cell=>cell.style.setProperty('--accent',color));const footer=document.getElementById('poster-footer');if(footer){footer.style.setProperty('--footer-accent',color)}}function applyFonts(){const qc=document.getElementById('q-color')?.value||'#1a1a2e',tc=document.getElementById('t-color')?.value||'#111';document.querySelectorAll('.cell-q').forEach(e=>{e.style.fontSize=SZ.q+'px';e.style.color=qc});document.querySelectorAll('.cell-hint').forEach(e=>e.style.fontSize=SZ.h+'px');document.querySelectorAll('.cell textarea').forEach(e=>{e.style.fontSize=SZ.t+'px';e.style.color=tc;ar(e)})}
 function autoInputWidth(input){const m=document.createElement('span');m.style.position='fixed';m.style.visibility='hidden';m.style.whiteSpace='pre';m.style.font=getComputedStyle(input).font;m.textContent=input.value||input.placeholder||'';document.body.appendChild(m);const min=input.id==='poster-class'?36:60;const max=input.id==='poster-class'?90:260;input.style.width=Math.min(max,Math.max(min,m.offsetWidth+18))+'px';m.remove()}
@@ -396,7 +728,7 @@ function wireCell(cell){cell.querySelector('.drag-handle').addEventListener('poi
 function selectCell(cell){if(selectedCell&&selectedCell!==cell)selectedCell.classList.remove('selected');selectedCell=cell;cell.classList.add('selected');if(cell.dataset.textbox)selectedTextId=cell.id;updateBar(cell);renderPanel()}function updateBar(cell){const b=getBox(cell),bar=document.getElementById('sel-bar');bar.textContent=`מיקום: ${b.x}, ${b.y} | גודל: ${b.w} × ${b.h}`;bar.style.display='block'}
 function wireGlobalEvents(){document.getElementById('q-color').addEventListener('input',applyFonts);document.getElementById('t-color').addEventListener('input',applyFonts);document.getElementById('accent-color').addEventListener('input',applyAccentColor);document.addEventListener('pointermove',e=>{if(activeLogoResize){e.preventDefault();const dx=e.clientX-activeLogoResize.startX,dy=e.clientY-activeLogoResize.startY,delta=Math.max(dx,dy),s=clamp(activeLogoResize.startW+delta,24,140);activeLogoResize.box.style.width=Math.round(s)+'px';activeLogoResize.box.style.height=Math.round(s)+'px';return}if(!activeAction)return;e.preventDefault();const a=activeAction,dx=e.clientX-a.startX,dy=e.clientY-a.startY,c=a.cell;let{x,y,w,h}=a;if(a.mode==='move'){x=clamp(a.x+dx,0,PW-a.w);y=clamp(a.y+dy,0,PH-a.h)}if(a.mode==='resize-right')w=clamp(a.w+dx,MIN_W,PW-a.x);if(a.mode==='resize-left'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x)}if(a.mode==='resize-bottom')h=clamp(a.h+dy,MIN_H,PH-a.y);if(a.mode==='resize-left-bottom'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x);h=clamp(a.h+dy,MIN_H,PH-a.y)}setBox(c,Math.round(x),Math.round(y),Math.round(w),Math.round(h));updateBar(c)},{passive:false});document.addEventListener('pointerup',()=>{if(activeLogoResize){activeLogoResize.box.releasePointerCapture?.(activeLogoResize.pointerId);activeLogoResize=null}if(activeAction){activeAction.cell.releasePointerCapture?.(activeAction.pointerId);activeAction=null}});document.addEventListener('pointercancel',()=>{activeAction=null;activeLogoResize=null});document.addEventListener('pointerdown',e=>{if(!e.target.closest('.cell')&&!e.target.closest('#toolbar')&&!e.target.closest('#side-panel')&&!e.target.closest('#side-toggle')){if(selectedCell)selectedCell.classList.remove('selected');selectedCell=null;selectedTextId=null;document.getElementById('sel-bar').style.display='none';renderPanel()}});document.getElementById('bg-up').addEventListener('change',function(){if(!this.files?.[0])return;const r=new FileReader();r.onload=e=>document.getElementById('bg-layer').style.backgroundImage=`url(${e.target.result})`;r.readAsDataURL(this.files[0])});document.getElementById('bg-overlay').style.background='transparent'}
 function loadImg(input,imgId,phId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId);img.src=e.target.result;img.classList.add('shown');document.getElementById(phId).style.display='none'};r.readAsDataURL(input.files[0])}function loadLogo(input,imgId,txtId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId),txt=document.getElementById(txtId);img.src=e.target.result;img.style.display='block';if(txt)txt.style.display='none'};r.readAsDataURL(input.files[0])}function logoKey(event,inputId){if(event.key==='Enter'||event.key===' '){event.preventDefault();openFileInput(inputId)}}function startLogoResize(event,boxId){const box=document.getElementById(boxId);if(!box)return;event.preventDefault();event.stopPropagation();activeLogoResize={box,pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,startW:box.offsetWidth,startH:box.offsetHeight};box.setPointerCapture?.(event.pointerId)}function clearBg(){document.getElementById('bg-layer').style.backgroundImage='none';document.getElementById('bg-up').value=''}
-function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
+function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('poster select exists',!!document.getElementById('poster-select'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
 buildPoster();wireGlobalEvents();runSelfTests();
 </script>
 </body>
