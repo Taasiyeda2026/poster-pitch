@@ -73,7 +73,7 @@ body.panel-open #wrap{padding-right:418px!important}
 .panel-head{padding:14px 16px!important}
 .panel-head>div{display:flex;flex-direction:column;gap:3px}
 .panel-head span{font-size:11px;color:#b8c7ff}
-.panel-tabs{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:6px;padding:10px 12px;background:#f7f9ff;border-bottom:1px solid rgba(45,74,138,.14)}
+.panel-tabs{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:1fr 1fr 1.15fr 1fr;gap:6px;padding:10px 12px;background:#f7f9ff;border-bottom:1px solid rgba(45,74,138,.14)}
 .panel-tab{border:1px solid rgba(45,74,138,.18);background:#fff;color:#1a1a2e;border-radius:12px;padding:8px 6px;cursor:pointer;font-size:12px;font-weight:900}
 .panel-tab:hover{border-color:#2d7ff9;background:#eef4ff}
 .panel-tab.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;box-shadow:0 6px 14px rgba(26,26,46,.18)}
@@ -252,6 +252,41 @@ body.panel-open #wrap{
   padding:6px 0 0!important;
 }
 
+
+
+/* Batch poster sequence tab */
+.batch-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.batch-actions button{border:none;border-radius:7px;background:#2d4a8a;color:#fff;padding:4px 6px;cursor:pointer;font-size:10.3px;font-weight:800;min-height:24px;line-height:1.05}
+.batch-actions button:hover{background:#3a5fa8}
+.batch-actions .secondary{background:#475467!important}
+.batch-actions .secondary:hover{background:#667085!important}
+.batch-actions .load-btn{background:#7a4cc2!important}
+.batch-actions .load-btn:hover{background:#8e5bda!important}
+.batch-actions .save-btn{background:#067647!important}
+.batch-actions .save-btn:hover{background:#079455!important}
+.batch-list{display:flex;flex-direction:column;gap:5px;max-height:280px;overflow:auto;border:1px solid rgba(45,74,138,.16);border-radius:8px;background:#fff;padding:6px}
+.batch-row{display:grid;grid-template-columns:18px 1fr;gap:6px;align-items:start;padding:5px;border-radius:7px;border:1px solid rgba(45,74,138,.12);background:#fbfcff;cursor:pointer}
+.batch-row:hover{background:#eef4ff}
+.batch-row input{width:auto!important;min-height:auto!important;margin-top:2px}
+.batch-title{font-size:10.6px;font-weight:900;color:#1a1a2e;line-height:1.25}
+.batch-meta{font-size:9.6px;color:#667085;line-height:1.25;margin-top:2px}
+.batch-empty{font-size:10.5px;color:#667085;padding:8px;text-align:center}
+#batch-print-area{display:none}
+#batch-print-area.has-pages{display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px;background:#777;margin-top:12px}
+.batch-poster-page{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.35);outline:3px solid #2d4a8a;flex-shrink:0;break-after:page;page-break-after:always}
+.batch-poster-page .batch-footer{position:absolute;left:72px;right:72px;bottom:14px;height:24px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px;border-top:1px solid #2fb6d6;color:#2fb6d6;font-size:12px;font-weight:500;background:transparent;z-index:5}
+.batch-static-cell{position:absolute;border:2px solid #3a3a3a;background:#fff;z-index:10;display:flex;flex-direction:column;box-shadow:-6px 6px 0 0 #2fb6d6,0 8px 18px rgba(0,0,0,.12);overflow:hidden}
+.batch-static-cell .drag-handle{height:18px;background:#5c666f}
+.batch-static-cell .cell-body{padding:8px 10px;gap:3px;overflow:hidden}
+.batch-static-cell .cell-q{font-size:14px;font-weight:700;color:#1a1a2e;text-align:center;line-height:1.3}
+.batch-static-cell .cell-hint{font-size:10px;color:#777;font-style:italic;text-align:center;line-height:1.3}
+.batch-answer{font-size:13px;color:#111;line-height:1.5;text-align:right;white-space:pre-wrap;overflow:hidden}
+.batch-img-placeholder{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:700;color:#4a5568;padding:10px}
+.batch-header-content{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:26px;font-weight:900;color:#1a1a2e;padding:0 70px}
+.batch-meta-content{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;font-size:13px;color:#111;padding:8px}
+.batch-special-answer{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:15px;line-height:1.5;white-space:pre-wrap;padding:8px;color:#111}
+@media print{body.batch-print-mode{background:#fff!important}body.batch-print-mode #toolbar,body.batch-print-mode #side-toggle,body.batch-print-mode #side-panel,body.batch-print-mode #wrap,body.batch-print-mode #sel-bar{display:none!important}body.batch-print-mode #batch-print-area{display:block!important;padding:0!important;margin:0!important;background:#fff!important}body.batch-print-mode #batch-print-area.has-pages{display:block!important}body.batch-print-mode .batch-poster-page{box-shadow:none!important;outline:none!important;margin:0!important;page-break-after:always;break-after:page}body.batch-print-mode .batch-static-cell{box-shadow:-5px 5px 0 0 #2fb6d6!important;border:1.5px solid #444!important}-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
 </style>
 </head>
 <body class="panel-open">
@@ -286,6 +321,7 @@ body.panel-open #wrap{
     <button type="button" class="panel-tab active" data-tab="design" onclick="openPanelTab('design')" role="tab" aria-selected="true">עיצוב</button>
     <button type="button" class="panel-tab" data-tab="questions" onclick="openPanelTab('questions')" role="tab" aria-selected="false">שאלות</button>
     <button type="button" class="panel-tab" data-tab="management" onclick="openPanelTab('management')" role="tab" aria-selected="false">רשימת ניהול</button>
+    <button type="button" class="panel-tab" data-tab="batch" onclick="openPanelTab('batch')" role="tab" aria-selected="false">רצף PDF</button>
   </div>
 
   <section id="tab-design" class="tab-pane active" role="tabpanel">
@@ -390,9 +426,35 @@ body.panel-open #wrap{
       <div class="panel-note in-card">הרשימה כאן נפרדת לחלוטין מאזור השאלות. כל פוסטר נשמר כרשומה נפרדת ב־Supabase. מבנה התיבות והשאלות נטען מטבלת <code>poster_site_structure</code>, ואם הטבלה אינה זמינה נטען מבנה ברירת המחדל.</div>
     </div>
   </section>
+
+  <section id="tab-batch" class="tab-pane" role="tabpanel">
+    <div class="panel-section-title">רצף פוסטרים ל־PDF</div>
+    <div class="panel-meta">
+      <div id="batch-status" class="sb-status warn">בחר פוסטרים מהרשימה כדי להציג אותם ברצף ולהדפיס כ־PDF אחד.</div>
+
+      <div class="batch-actions">
+        <button type="button" onclick="loadBatchPosterList()">↻ טען רשימה</button>
+        <button type="button" class="secondary" onclick="setAllBatchPosters(true)">סמן הכל</button>
+        <button type="button" class="secondary" onclick="setAllBatchPosters(false)">נקה סימון</button>
+      </div>
+
+      <label>בחירת פוסטרים לרצף</label>
+      <div id="batch-poster-list" class="batch-list">
+        <div class="batch-empty">הרשימה תיטען מתוך Supabase.</div>
+      </div>
+
+      <div class="batch-actions">
+        <button type="button" class="load-btn" onclick="previewBatchPosters()">👁 הצג רצף</button>
+        <button type="button" class="save-btn" onclick="printBatchPosters()">🖨 הדפס PDF</button>
+        <button type="button" class="secondary" onclick="clearBatchPreview()">נקה תצוגה</button>
+      </div>
+
+      <div class="panel-note in-card">הלשונית הזו לא משנה את הפוסטרים ולא שומרת נתונים. היא רק טוענת פוסטרים נבחרים ומציגה אותם כעמודים רצופים להדפסה.</div>
+    </div>
+  </section>
 </aside>
 
-<div id="wrap"><div id="poster"><div id="bg-layer"></div><div id="bg-overlay"></div><div id="poster-footer">פוסטר חקר מדעי-טכנולוגי לפתרון בעיה</div></div></div><div id="sel-bar"></div>
+<div id="wrap"><div id="poster"><div id="bg-layer"></div><div id="bg-overlay"></div><div id="poster-footer">פוסטר חקר מדעי-טכנולוגי לפתרון בעיה</div></div></div><div id="sel-bar"></div><div id="batch-print-area" aria-label="רצף פוסטרים להדפסה"></div>
 <script>
 const poster=document.getElementById('poster');const PW=794,PH=1123,MIN_W=80,MIN_H=44;
 
@@ -801,6 +863,87 @@ function newPoster(){
  renderPanel();layoutMainBoxes();setStatus('נפתח פוסטר חדש.','ok')
 }
 
+
+function setBatchStatus(message,type='warn'){
+ const el=document.getElementById('batch-status');if(!el)return;
+ el.className='sb-status '+type;el.textContent=message
+}
+async function loadBatchPosterList(){
+ const client=getSupabaseClient();if(!client)return;
+ const list=document.getElementById('batch-poster-list');if(!list)return;
+ list.innerHTML='<div class="batch-empty">טוען פוסטרים...</div>';
+ const {data,error}=await client.from(SUPABASE_TABLE).select('id,project_name,class_name,school_name,participants_count,students,created_at,updated_at').order('updated_at',{ascending:false}).limit(200);
+ if(error){list.innerHTML='<div class="batch-empty">שגיאה בטעינת הפוסטרים</div>';setBatchStatus('שגיאה בטעינת הפוסטרים: '+error.message,'err');return}
+ if(!data||!data.length){list.innerHTML='<div class="batch-empty">אין פוסטרים שמורים.</div>';setBatchStatus('אין פוסטרים שמורים להצגה ברצף.','warn');return}
+ list.innerHTML='';
+ data.forEach(row=>{
+  const label=document.createElement('label');
+  label.className='batch-row';
+  const meta=[row.school_name,row.class_name].filter(Boolean).join(' · ');
+  label.innerHTML=`<input type="checkbox" class="batch-poster-check" value="${esc(row.id)}"><div><div class="batch-title">${esc(row.project_name||'פוסטר ללא שם')}</div><div class="batch-meta">${esc(meta||'ללא בית ספר/כיתה')} · ${esc(String(row.participants_count||''))} משתתפים</div></div>`;
+  list.appendChild(label)
+ });
+ setBatchStatus('נטענו '+data.length+' פוסטרים. סמן את הפוסטרים שברצונך להדפיס ברצף.','ok')
+}
+function setAllBatchPosters(checked){document.querySelectorAll('.batch-poster-check').forEach(cb=>cb.checked=!!checked)}
+function getSelectedBatchPosterIds(){return Array.from(document.querySelectorAll('.batch-poster-check:checked')).map(cb=>cb.value).filter(Boolean)}
+function getPosterPayload(row){return (row.poster_data&&typeof row.poster_data==='object'?row.poster_data:null)||(row.payload&&typeof row.payload==='object'?row.payload:null)||{}}
+function getTextBoxMap(payload){const map={};(payload.textBoxes||[]).forEach(box=>{if(box&&box.id)map[box.id]=box});return map}
+function renderBatchPosterPage(row){
+ const payload=getPosterPayload(row);
+ const textMap=getTextBoxMap(payload);
+ const page=document.createElement('div');
+ page.className='batch-poster-page';
+ const footer=document.createElement('div');
+ footer.className='batch-footer';
+ footer.textContent=payload.footer||'פוסטר חקר מדעי-טכנולוגי לפתרון בעיה';
+ page.appendChild(footer);
+ const students=Array.isArray(row.students)?row.students.filter(Boolean).join(', '):'';
+ DEFS.forEach(def=>{
+  const cell=document.createElement('div');
+  cell.className='batch-static-cell';
+  cell.style.left=(Number(def.x)||0)+'px';cell.style.top=(Number(def.y)||0)+'px';cell.style.width=(Number(def.w)||100)+'px';cell.style.height=(Number(def.h)||60)+'px';
+  if(def.type==='header'){cell.innerHTML=`<div class="batch-header-content">${esc(row.project_name||'')}</div>`}
+  else if(def.type==='meta'){cell.innerHTML=`<div class="batch-meta-content"><div><strong>כיתה:</strong> ${esc(row.class_name||'')}</div><div><strong>שם בית הספר:</strong> ${esc(row.school_name||'')}</div><div>${esc(students)}</div></div>`}
+  else if(def.type==='image'){cell.innerHTML=`<div class="drag-handle"></div><div class="cell-body"><div class="batch-img-placeholder">${esc(def.lbl||'תמונה')}</div></div>`}
+  else if(def.type==='text'){
+   const item=textMap[def.id]||{};
+   const title=item.question||def.q||'';
+   const hint=item.hint||def.hint||'';
+   const answer=item.answer||'';
+   if(def.id==='c-org-name'||def.id==='c-qst'){cell.innerHTML=`<div class="batch-special-answer">${esc(answer)}</div>`}
+   else{cell.innerHTML=`<div class="drag-handle"></div><div class="cell-body"><div class="cell-q">${esc(title)}</div>${hint?`<div class="cell-hint">${esc(hint)}</div>`:''}<div class="batch-answer">${esc(answer)}</div></div>`}
+  }
+  page.appendChild(cell)
+ });
+ return page
+}
+async function previewBatchPosters(){
+ const ids=getSelectedBatchPosterIds();
+ if(!ids.length){alert('בחר לפחות פוסטר אחד לרצף.');return}
+ const client=getSupabaseClient();if(!client)return;
+ setBatchStatus('טוען '+ids.length+' פוסטרים לרצף...','warn');
+ const {data,error}=await client.from(SUPABASE_TABLE).select('*').in('id',ids);
+ if(error){setBatchStatus('שגיאה בטעינת רצף הפוסטרים: '+error.message,'err');alert('שגיאה בטעינת רצף הפוסטרים: '+error.message);return}
+ const rows=(data||[]).sort((a,b)=>ids.indexOf(a.id)-ids.indexOf(b.id));
+ const area=document.getElementById('batch-print-area');if(!area)return;
+ area.innerHTML='';
+ rows.forEach(row=>area.appendChild(renderBatchPosterPage(row)));
+ area.classList.add('has-pages');
+ document.body.classList.add('batch-preview-visible');
+ setBatchStatus('נוצר רצף של '+rows.length+' פוסטרים. אפשר ללחוץ הדפס PDF.','ok');
+ area.scrollIntoView({behavior:'smooth',block:'start'})
+}
+function clearBatchPreview(){const area=document.getElementById('batch-print-area');if(area){area.innerHTML='';area.classList.remove('has-pages')}document.body.classList.remove('batch-print-mode','batch-preview-visible');setBatchStatus('תצוגת הרצף נוקתה.','warn')}
+async function printBatchPosters(){
+ const area=document.getElementById('batch-print-area');
+ if(!area||!area.querySelector('.batch-poster-page'))await previewBatchPosters();
+ if(!area||!area.querySelector('.batch-poster-page'))return;
+ document.body.classList.add('batch-print-mode');
+ setTimeout(()=>window.print(),120)
+}
+window.addEventListener('afterprint',()=>document.body.classList.remove('batch-print-mode'));
+
 function openPanelTab(tabName){
  document.body.classList.add('panel-open');
  document.querySelectorAll('.panel-tab').forEach(btn=>{
@@ -809,6 +952,7 @@ function openPanelTab(tabName){
   btn.setAttribute('aria-selected',active?'true':'false')
  });
  document.querySelectorAll('.tab-pane').forEach(pane=>pane.classList.toggle('active',pane.id==='tab-'+tabName));
+ if(tabName==='batch')loadBatchPosterList();
 }
 function togglePanel(){document.body.classList.toggle('panel-open')}
 function chSz(type,delta){const max={q:26,t:24}[type],min={q:9,t:9}[type];if(max===undefined)return;SZ[type]=Math.min(max,Math.max(min,SZ[type]+delta));document.getElementById(type+'-v').textContent=SZ[type];applyFonts()}function applyAccentColor(){const color=document.getElementById('accent-color')?.value||'#2fb6d6';document.querySelectorAll('.cell').forEach(cell=>cell.style.setProperty('--accent',color));const footer=document.getElementById('poster-footer');if(footer){footer.style.setProperty('--footer-accent',color)}}function applyFonts(){const qc=document.getElementById('q-color')?.value||'#1a1a2e',tc=document.getElementById('t-color')?.value||'#111';document.querySelectorAll('.cell-q').forEach(e=>{e.style.fontSize=SZ.q+'px';e.style.color=qc});document.querySelectorAll('.cell-hint').forEach(e=>e.style.fontSize=SZ.h+'px');document.querySelectorAll('.cell textarea').forEach(e=>{e.style.fontSize=SZ.t+'px';e.style.color=tc;ar(e)})}
@@ -819,7 +963,7 @@ function wireCell(cell){cell.querySelector('.drag-handle').addEventListener('poi
 function selectCell(cell){if(selectedCell&&selectedCell!==cell)selectedCell.classList.remove('selected');selectedCell=cell;cell.classList.add('selected');if(cell.dataset.textbox)selectedTextId=cell.id;updateBar(cell);renderPanel()}function updateBar(cell){const b=getBox(cell),bar=document.getElementById('sel-bar');bar.textContent=`מיקום: ${b.x}, ${b.y} | גודל: ${b.w} × ${b.h}`;bar.style.display='block'}
 function wireGlobalEvents(){document.getElementById('q-color').addEventListener('input',applyFonts);document.getElementById('t-color').addEventListener('input',applyFonts);document.getElementById('accent-color').addEventListener('input',applyAccentColor);document.addEventListener('pointermove',e=>{if(activeLogoResize){e.preventDefault();const dx=e.clientX-activeLogoResize.startX,dy=e.clientY-activeLogoResize.startY,delta=Math.max(dx,dy),s=clamp(activeLogoResize.startW+delta,24,140);activeLogoResize.box.style.width=Math.round(s)+'px';activeLogoResize.box.style.height=Math.round(s)+'px';return}if(!activeAction)return;e.preventDefault();const a=activeAction,dx=e.clientX-a.startX,dy=e.clientY-a.startY,c=a.cell;let{x,y,w,h}=a;if(a.mode==='move'){x=clamp(a.x+dx,0,PW-a.w);y=clamp(a.y+dy,0,PH-a.h)}if(a.mode==='resize-right')w=clamp(a.w+dx,MIN_W,PW-a.x);if(a.mode==='resize-left'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x)}if(a.mode==='resize-bottom')h=clamp(a.h+dy,MIN_H,PH-a.y);if(a.mode==='resize-left-bottom'){x=clamp(a.x+dx,0,a.x+a.w-MIN_W);w=a.w+(a.x-x);h=clamp(a.h+dy,MIN_H,PH-a.y)}setBox(c,Math.round(x),Math.round(y),Math.round(w),Math.round(h));updateBar(c)},{passive:false});document.addEventListener('pointerup',()=>{if(activeLogoResize){activeLogoResize.box.releasePointerCapture?.(activeLogoResize.pointerId);activeLogoResize=null}if(activeAction){activeAction.cell.releasePointerCapture?.(activeAction.pointerId);activeAction=null}});document.addEventListener('pointercancel',()=>{activeAction=null;activeLogoResize=null});document.addEventListener('pointerdown',e=>{if(!e.target.closest('.cell')&&!e.target.closest('#toolbar')&&!e.target.closest('#side-panel')&&!e.target.closest('#side-toggle')){if(selectedCell)selectedCell.classList.remove('selected');selectedCell=null;selectedTextId=null;document.getElementById('sel-bar').style.display='none';renderPanel()}});document.getElementById('bg-up').addEventListener('change',function(){if(!this.files?.[0])return;const r=new FileReader();r.onload=e=>document.getElementById('bg-layer').style.backgroundImage=`url(${e.target.result})`;r.readAsDataURL(this.files[0])});document.getElementById('bg-overlay').style.background='transparent'}
 function loadImg(input,imgId,phId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId);img.src=e.target.result;img.classList.add('shown');document.getElementById(phId).style.display='none'};r.readAsDataURL(input.files[0])}function loadLogo(input,imgId,txtId){if(!input.files?.[0])return;const r=new FileReader();r.onload=e=>{const img=document.getElementById(imgId),txt=document.getElementById(txtId);img.src=e.target.result;img.style.display='block';if(txt)txt.style.display='none'};r.readAsDataURL(input.files[0])}function logoKey(event,inputId){if(event.key==='Enter'||event.key===' '){event.preventDefault();openFileInput(inputId)}}function startLogoResize(event,boxId){const box=document.getElementById(boxId);if(!box)return;event.preventDefault();event.stopPropagation();activeLogoResize={box,pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,startW:box.offsetWidth,startH:box.offsetHeight};box.setPointerCapture?.(event.pointerId)}function clearBg(){document.getElementById('bg-layer').style.backgroundImage='none';document.getElementById('bg-up').value=''}
-function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('site structure loader exists',typeof loadSiteStructureFromSupabase==='function');assert('poster select exists',!!document.getElementById('poster-select'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
+function runSelfTests(){const assert=(n,c)=>{if(!c)console.error('בדיקת תקינות נכשלה:',n)};assert('side panel exists',!!document.getElementById('side-panel'));assert('single logo exists',!!document.getElementById('li1')&&!document.getElementById('li2'));assert('text cells rendered in panel',document.querySelectorAll('.panel-card').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('side meta fields exist',!!document.getElementById('side-class')&&!!document.getElementById('side-school')&&!!document.getElementById('poster-class')&&!!document.getElementById('poster-school'));assert('project name fields exist',!!document.getElementById('side-project')&&!!document.getElementById('poster-project'));assert('students fields exist',!!document.getElementById('side-students')&&!!document.getElementById('poster-students'));assert('participants controls exist',!!document.getElementById('participants-count')&&!!document.getElementById('participants-fields'));assert('supabase status exists',!!document.getElementById('supabase-status'));assert('site structure loader exists',typeof loadSiteStructureFromSupabase==='function');assert('poster select exists',!!document.getElementById('poster-select'));assert('batch tab exists',!!document.getElementById('tab-batch')&&!!document.getElementById('batch-poster-list'));assert('meta box auto width function exists',typeof updateMetaBoxWidth==='function');assert('delete buttons exist for text cells',document.querySelectorAll('.panel-card button.danger').length===document.querySelectorAll('.cell[data-textbox="1"]').length);assert('single image add button exists',!!document.querySelector('.panel-actions button[onclick="addSingleImageBox()"]'));assert('duplicate selected button removed',!document.querySelector('.panel-actions button[onclick="duplicateSelectedQuestion()"]'));assert('accent color picker exists',!!document.getElementById('accent-color'));assert('opacity control removed',!document.getElementById('opa')&&!document.getElementById('opa-v'));assert('poster footer exists',!!document.getElementById('poster-footer'));assert('print keeps cell border via css media rule',true)}
 initPosterApp();
 </script>
 </body>
