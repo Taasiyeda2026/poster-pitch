@@ -99,6 +99,14 @@ button.secondary:hover,.poster-list-actions button.secondary:hover{background:#6
 @media print{.clean-toolbar,.panel-tabs{display:none!important}}
 
 
+/* Special cells - organism name & research question show content boldly without title */
+#c-org-name .cell-q,
+#c-org-name .cell-hint { display: none !important; }
+#c-org-name textarea { font-weight: 900 !important; font-size: 16px !important; text-align: center; }
+#c-qst .cell-q,
+#c-qst .cell-hint { display: none !important; }
+#c-qst textarea { font-weight: 900 !important; font-size: 15px !important; text-align: center; line-height: 1.5; }
+
 /* Compact side panel controls */
 #side-panel{
   width:360px!important;
@@ -417,18 +425,21 @@ let supabaseClient=null,currentSubmissionId=null,isSyncingParticipants=false;
 
 const LEFT_X=72,RIGHT_X=414,LEFT_W=306,RIGHT_W=307,FULL_X=72,FULL_W=649,SMALL_IMG_W=145,IMG_GAP=16,ROW_GAP=24,FOOTER_SAFE_TOP=1078;let activeAction=null,selectedCell=null,activeLogoResize=null,selectedTextId=null,nextDynamicId=1,imageBoxAdded=false;const SZ={q:14,h:10,t:13};
 const DEFAULT_DEFS=[
-{id:'c-hdr',type:'header',x:72,y:10,w:649,h:88},{id:'c-meta',type:'meta',x:72,y:106,w:649,h:101},
-{id:'c-prob',type:'text',x:72,y:148,w:306,h:100,q:'הבעיה והצורך',hint:'מה הבעיה שזיהינו? למי היא מפריעה? למה חשוב לפתור אותה?',ph:'תארו את הבעיה והצורך...'},
-{id:'c-org',type:'text',x:414,y:148,w:307,h:100,q:'קהל היעד / המשתמשים',hint:'מי קהל היעד? באיזו סיטואציה הבעיה מופיעה?',ph:'תארו למי הפתרון מיועד...'},
-{id:'c-img1',type:'image',x:72,y:256,w:306,h:165,lbl:'📸 תמונה / סקיצה / השראה',iid:'img1'},
-{id:'c-bio',type:'text',x:414,y:256,w:307,h:165,q:'חקר ואיסוף מידע',hint:'מה בדקנו כדי להבין את הבעיה טוב יותר? אילו עובדות או תובנות גילינו?',ph:'תארו מה חקרתם ומה גיליתם...'},
-{id:'c-qst',type:'text',x:72,y:429,w:306,h:100,q:'שאלת החקר / האתגר',hint:'נסחו שאלה שמחברת בין הבעיה, הצורך והפתרון האפשרי.',ph:'כיצד ניתן...?'},
-{id:'c-sol',type:'text',x:414,y:429,w:307,h:100,q:'הרעיון לפתרון',hint:'מה הפתרון שאנחנו מציעים? איך הוא עונה על הבעיה?',ph:'הפתרון שלנו...'},
-{id:'c-proc',type:'text',x:72,y:537,w:649,h:78,q:'תהליך התכנון והפיתוח',hint:'איך התקדמנו מרעיון לפתרון? מה תכננו, שינינו או שיפרנו בדרך?',ph:'תחילה חקרנו... לאחר מכן תכננו... ולבסוף פיתחנו ושיפרנו...'},
-{id:'c-img2',type:'image',x:72,y:623,w:145,h:160,lbl:'📸 אב־טיפוס / דגם',iid:'img2'},{id:'c-img3',type:'image',x:233,y:623,w:145,h:160,lbl:'📸 תהליך / בדיקה',iid:'img3'},
-{id:'c-prot',type:'text',x:414,y:623,w:307,h:160,q:'אב־טיפוס / דגם / המחשה',hint:'מה בנינו או הצגנו כדי להמחיש את הפתרון? איך הוא אמור לפעול?',ph:'תארו את האב־טיפוס או הדגם...'},
-{id:'c-tst',type:'text',x:72,y:791,w:306,h:100,q:'בדיקה והערכה',hint:'מה בדקנו? מה עבד טוב? מה עדיין דורש שיפור?',ph:'בדקנו... עבד טוב... דורש שיפור...'},
-{id:'c-con',type:'text',x:414,y:791,w:307,h:100,q:'מסקנות ולמידה',hint:'מה למדנו מהתהליך? מה היינו משפרים בשלב הבא?',ph:'למדנו כי... בשלב הבא נרצה לשפר...'}
+{id:'c-hdr',type:'header',x:72,y:10,w:649,h:88},
+{id:'c-meta',type:'meta',x:72,y:106,w:649,h:101},
+{id:'c-prob',type:'text',x:414,y:215,w:307,h:130,q:'\u05de\u05d4 \u05d4\u05d1\u05e2\u05d9\u05d4 \u05d5\u05d4\u05e6\u05d5\u05e8\u05da?',hint:'\u05de\u05d4 \u05d4\u05d1\u05e2\u05d9\u05d4 \u05e9\u05d6\u05d9\u05d4\u05d9\u05e0\u05d5? \u05de\u05d9 \u05e0\u05e4\u05d2\u05e2 \u05de\u05de\u05e0\u05d4? \u05dc\u05de\u05d4 \u05d7\u05e9\u05d5\u05d1 \u05dc\u05e4\u05ea\u05d5\u05e8?',ph:'\u05ea\u05d0\u05e8\u05d5 \u05d0\u05ea \u05d4\u05d1\u05e2\u05d9\u05d4 \u05d5\u05d4\u05e6\u05d5\u05e8\u05da...'},
+{id:'c-org-name',type:'text',x:414,y:353,w:307,h:70,q:'\u05e9\u05dd \u05d4\u05d0\u05d5\u05e8\u05d2\u05e0\u05d9\u05d6\u05dd',hint:'',ph:'\u05e9\u05dd \u05d4\u05d0\u05d5\u05e8\u05d2\u05e0\u05d9\u05d6\u05dd...'},
+{id:'c-org-img',type:'image',x:414,y:431,w:307,h:160,lbl:'\ud83d\udcf8 \u05ea\u05de\u05d5\u05e0\u05ea \u05d4\u05d0\u05d5\u05e8\u05d2\u05e0\u05d9\u05d6\u05dd',iid:'img-org'},
+{id:'c-nature',type:'text',x:414,y:599,w:307,h:130,q:'\u05d4\u05ea\u05e4\u05e7\u05d5\u05d3 \u05d1\u05d8\u05d1\u05e2',hint:'\u05db\u05d9\u05e6\u05d3 \u05d4\u05d0\u05d5\u05e8\u05d2\u05e0\u05d9\u05d6\u05dd \u05e4\u05d5\u05ea\u05e8 \u05d1\u05e2\u05d9\u05d4 \u05d3\u05d5\u05de\u05d4 \u05d1\u05d8\u05d1\u05e2?',ph:'\u05ea\u05d0\u05e8\u05d5 \u05d0\u05ea \u05d4\u05ea\u05e4\u05e7\u05d5\u05d3 \u05d1\u05d8\u05d1\u05e2...'},
+{id:'c-bio-principle',type:'text',x:414,y:737,w:307,h:130,q:'\u05de\u05d4 \u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05dc\u05d5\u05d2\u05d9 \u05d4\u05de\u05e8\u05db\u05d6\u05d9?',hint:'\u05de\u05d4 \u05d4\u05de\u05e0\u05d2\u05e0\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05dc\u05d5\u05d2\u05d9 \u05e9\u05d0\u05e0\u05d7\u05e0\u05d5 \u05dc\u05d5\u05de\u05d3\u05d9\u05dd \u05de\u05de\u05e0\u05d5?',ph:'\u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05dc\u05d5\u05d2\u05d9...'},
+{id:'c-bio-mimic',type:'text',x:414,y:875,w:307,h:130,q:'\u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05de\u05d9\u05de\u05d8\u05d9 \u05d4\u05de\u05e8\u05db\u05d6\u05d9',hint:'\u05db\u05d9\u05e6\u05d3 \u05d0\u05e0\u05d7\u05e0\u05d5 \u05de\u05d9\u05d9\u05e9\u05de\u05d9\u05dd \u05d0\u05ea \u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05dc\u05d5\u05d2\u05d9 \u05d1\u05e4\u05ea\u05e8\u05d5\u05df?',ph:'\u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05de\u05d9\u05de\u05d8\u05d9...'},
+{id:'c-qst',type:'text',x:72,y:215,w:306,h:100,q:'\u05e9\u05d0\u05dc\u05ea \u05d4\u05d7\u05e7\u05e8',hint:'',ph:'\u05db\u05d9\u05e6\u05d3 \u05e0\u05d9\u05ea\u05df...?'},
+{id:'c-sol',type:'text',x:72,y:323,w:306,h:120,q:'\u05de\u05d4 \u05d4\u05e4\u05ea\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05de\u05d9\u05de\u05d8\u05d9?',hint:'\u05de\u05d4 \u05d4\u05e4\u05ea\u05e8\u05d5\u05df \u05e9\u05d0\u05e0\u05d7\u05e0\u05d5 \u05de\u05e6\u05d9\u05e2\u05d9\u05dd? \u05d0\u05d9\u05da \u05d4\u05d5\u05d0 \u05de\u05d1\u05d5\u05e1\u05e1 \u05e2\u05dc \u05d4\u05d8\u05d1\u05e2?',ph:'\u05d4\u05e4\u05ea\u05e8\u05d5\u05df \u05d4\u05d1\u05d9\u05d5\u05de\u05d9\u05de\u05d8\u05d9 \u05e9\u05dc\u05e0\u05d5...'},
+{id:'c-img-sol1',type:'image',x:72,y:451,w:145,h:150,lbl:'\ud83d\udcf8 \u05ea\u05de\u05d5\u05e0\u05ea \u05e4\u05ea\u05e8\u05d5\u05df 1',iid:'img-sol1'},
+{id:'c-img-sol2',type:'image',x:225,y:451,w:145,h:150,lbl:'\ud83d\udcf8 \u05ea\u05de\u05d5\u05e0\u05ea \u05e4\u05ea\u05e8\u05d5\u05df 2',iid:'img-sol2'},
+{id:'c-proc',type:'text',x:72,y:609,w:306,h:120,q:'\u05ea\u05d4\u05dc\u05d9\u05da \u05d4\u05ea\u05d9\u05db\u05d5\u05df \u05d4\u05d8\u05db\u05e0\u05d5\u05dc\u05d5\u05d2\u05d9',hint:'\u05db\u05d9\u05e6\u05d3 \u05ea\u05db\u05e0\u05e0\u05d5 \u05d5\u05e4\u05d9\u05ea\u05d7\u05e0\u05d5 \u05d0\u05ea \u05d4\u05e4\u05ea\u05e8\u05d5\u05df?',ph:'\u05ea\u05d0\u05e8\u05d5 \u05d0\u05ea \u05ea\u05d4\u05dc\u05d9\u05da \u05d4\u05ea\u05db\u05e0\u05d5\u05df \u05d5\u05d4\u05e4\u05d9\u05ea\u05d5\u05d7...'},
+{id:'c-proto',type:'text',x:72,y:737,w:306,h:120,q:'\u05d0\u05d1\u05d8\u05d9\u05e4\u05d5\u05e1',hint:'\u05de\u05d4 \u05d1\u05e0\u05d9\u05e0\u05d5? \u05db\u05d9\u05e6\u05d3 \u05d4\u05d3\u05d2\u05de\u05e0\u05d5 \u05d0\u05ea \u05d4\u05e4\u05ea\u05e8\u05d5\u05df?',ph:'\u05ea\u05d0\u05e8\u05d5 \u05d0\u05ea \u05d4\u05d0\u05d1-\u05d8\u05d9\u05e4\u05d5\u05e1...'},
+{id:'c-eval',type:'text',x:72,y:865,w:306,h:150,q:'\u05d1\u05d3\u05d9\u05e7\u05d4 \u05d5\u05d4\u05e2\u05e8\u05db\u05d4 | \u05e2\u05e8\u05da \u05d5\u05de\u05e1\u05e7\u05e0\u05d5\u05ea',hint:'\u05de\u05d4 \u05d1\u05d3\u05e7\u05e0\u05d5? \u05de\u05d4 \u05e2\u05d1\u05d3? \u05de\u05d4 \u05dc\u05de\u05d3\u05e0\u05d5?',ph:'\u05d1\u05d3\u05d9\u05e7\u05d4 \u05d5\u05d4\u05e2\u05e8\u05db\u05d4: ...\n\n\u05e2\u05e8\u05da \u05d5\u05de\u05e1\u05e7\u05e0\u05d5\u05ea: ...'}
 ];;
 let DEFS=DEFAULT_DEFS.map(d=>({...d}));
 function mk(t,c,h){const e=document.createElement(t);if(c)e.className=c;if(h)e.innerHTML=h;return e}function setBox(e,x,y,w,h){e.style.left=x+'px';e.style.top=y+'px';e.style.width=w+'px';e.style.height=h+'px'}function getBox(e){return{x:parseInt(e.style.left)||0,y:parseInt(e.style.top)||0,w:e.offsetWidth,h:e.offsetHeight}}function clamp(v,min,max){return Math.max(min,Math.min(max,v))}function openFileInput(id){const i=document.getElementById(id);if(i)i.click()}function ar(e){e.style.height='auto';e.style.height=e.scrollHeight+'px'}
@@ -494,24 +505,37 @@ async function initPosterApp(){
  runSelfTests()
 }
 function layoutMainBoxes(){
- const ids=['c-hdr','c-meta','c-prob','c-org','c-img1','c-bio','c-qst','c-sol','c-proc','c-img2','c-img3','c-prot','c-tst','c-con'];
- const el=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
- if(!el['c-hdr']||!el['c-meta'])return;
- setBox(el['c-hdr'],FULL_X,10,FULL_W,el['c-hdr'].offsetHeight);
- const metaW=el['c-meta'].offsetWidth||FULL_W;
- setBox(el['c-meta'],Math.round((PW-metaW)/2),106,metaW,el['c-meta'].offsetHeight);
- let y=el['c-meta'].offsetTop+el['c-meta'].offsetHeight+ROW_GAP+20;
- placePair(el['c-prob'],el['c-org'],y);y+=Math.max(heightOf(el['c-prob']),heightOf(el['c-org']))+ROW_GAP;
- placePair(el['c-bio'],el['c-img1'],y);y+=Math.max(heightOf(el['c-img1']),heightOf(el['c-bio']))+ROW_GAP;
- placePair(el['c-sol'],el['c-qst'],y);y+=Math.max(heightOf(el['c-qst']),heightOf(el['c-sol']))+ROW_GAP;
- if(el['c-proc']){setBox(el['c-proc'],FULL_X,y,FULL_W,el['c-proc'].offsetHeight);y+=el['c-proc'].offsetHeight+ROW_GAP;}
- if(el['c-img2'])setBox(el['c-img2'],LEFT_X,y,SMALL_IMG_W,el['c-img2'].offsetHeight);
- if(el['c-img3'])setBox(el['c-img3'],LEFT_X+SMALL_IMG_W+IMG_GAP,y,SMALL_IMG_W,el['c-img3'].offsetHeight);
- if(el['c-prot'])setBox(el['c-prot'],RIGHT_X,y,RIGHT_W,el['c-prot'].offsetHeight);
- y+=Math.max(heightOf(el['c-img2']),heightOf(el['c-img3']),heightOf(el['c-prot']))+ROW_GAP;
- const finalRowH=Math.max(heightOf(el['c-tst']),heightOf(el['c-con']));
- if(y+finalRowH>FOOTER_SAFE_TOP)y=FOOTER_SAFE_TOP-finalRowH;
- placePair(el['c-con'],el['c-tst'],y);
+ const g=id=>document.getElementById(id);
+ const hdr=g('c-hdr'),meta=g('c-meta');
+ if(!hdr||!meta)return;
+ setBox(hdr,FULL_X,10,FULL_W,hdr.offsetHeight);
+ const metaW=meta.offsetWidth||FULL_W;
+ setBox(meta,Math.round((PW-metaW)/2),106,metaW,meta.offsetHeight);
+ const GAP=8;
+ let startY=meta.offsetTop+meta.offsetHeight+GAP+8;
+ // עמודה ימין
+ let yR=startY;
+ ['c-prob','c-org-name','c-org-img','c-nature','c-bio-principle','c-bio-mimic'].forEach(id=>{
+  const e=g(id);if(!e)return;
+  setBox(e,RIGHT_X,yR,RIGHT_W,e.offsetHeight);
+  yR+=e.offsetHeight+GAP;
+ });
+ // עמודה שמאל
+ let yL=startY;
+ ['c-qst','c-sol'].forEach(id=>{
+  const e=g(id);if(!e)return;
+  setBox(e,LEFT_X,yL,LEFT_W,e.offsetHeight);
+  yL+=e.offsetHeight+GAP;
+ });
+ const s1=g('c-img-sol1'),s2=g('c-img-sol2');
+ if(s1)setBox(s1,LEFT_X,yL,SMALL_IMG_W,s1.offsetHeight);
+ if(s2)setBox(s2,LEFT_X+SMALL_IMG_W+IMG_GAP,yL,SMALL_IMG_W,s2.offsetHeight);
+ yL+=Math.max(heightOf(s1),heightOf(s2))+GAP;
+ ['c-proc','c-proto','c-eval'].forEach(id=>{
+  const e=g(id);if(!e)return;
+  setBox(e,LEFT_X,yL,LEFT_W,e.offsetHeight);
+  yL+=e.offsetHeight+GAP;
+ });
 }
 function placePair(rightCell,leftCell,y){if(rightCell)setBox(rightCell,RIGHT_X,y,RIGHT_W,rightCell.offsetHeight);if(leftCell)setBox(leftCell,LEFT_X,y,LEFT_W,leftCell.offsetHeight)}
 function heightOf(el){return el?el.offsetHeight:0}
