@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<!-- v2025-05-27 -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>פוסטר חקר מדעי-טכנולוגי</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -498,8 +502,8 @@ function layoutMainBoxes(){
  setBox(el['c-meta'],Math.round((PW-metaW)/2),106,metaW,el['c-meta'].offsetHeight);
  let y=el['c-meta'].offsetTop+el['c-meta'].offsetHeight+ROW_GAP+20;
  placePair(el['c-prob'],el['c-org'],y);y+=Math.max(heightOf(el['c-prob']),heightOf(el['c-org']))+ROW_GAP;
- placePair(el['c-img1'],el['c-bio'],y);y+=Math.max(heightOf(el['c-img1']),heightOf(el['c-bio']))+ROW_GAP;
- placePair(el['c-qst'],el['c-sol'],y);y+=Math.max(heightOf(el['c-qst']),heightOf(el['c-sol']))+ROW_GAP;
+ placePair(el['c-bio'],el['c-img1'],y);y+=Math.max(heightOf(el['c-img1']),heightOf(el['c-bio']))+ROW_GAP;
+ placePair(el['c-sol'],el['c-qst'],y);y+=Math.max(heightOf(el['c-qst']),heightOf(el['c-sol']))+ROW_GAP;
  if(el['c-proc']){setBox(el['c-proc'],FULL_X,y,FULL_W,el['c-proc'].offsetHeight);y+=el['c-proc'].offsetHeight+ROW_GAP;}
  if(el['c-img2'])setBox(el['c-img2'],LEFT_X,y,SMALL_IMG_W,el['c-img2'].offsetHeight);
  if(el['c-img3'])setBox(el['c-img3'],LEFT_X+SMALL_IMG_W+IMG_GAP,y,SMALL_IMG_W,el['c-img3'].offsetHeight);
@@ -507,9 +511,9 @@ function layoutMainBoxes(){
  y+=Math.max(heightOf(el['c-img2']),heightOf(el['c-img3']),heightOf(el['c-prot']))+ROW_GAP;
  const finalRowH=Math.max(heightOf(el['c-tst']),heightOf(el['c-con']));
  if(y+finalRowH>FOOTER_SAFE_TOP)y=FOOTER_SAFE_TOP-finalRowH;
- placePair(el['c-tst'],el['c-con'],y);
+ placePair(el['c-con'],el['c-tst'],y);
 }
-function placePair(leftCell,rightCell,y){if(leftCell)setBox(leftCell,LEFT_X,y,LEFT_W,leftCell.offsetHeight);if(rightCell)setBox(rightCell,RIGHT_X,y,RIGHT_W,rightCell.offsetHeight)}
+function placePair(rightCell,leftCell,y){if(rightCell)setBox(rightCell,RIGHT_X,y,RIGHT_W,rightCell.offsetHeight);if(leftCell)setBox(leftCell,LEFT_X,y,LEFT_W,leftCell.offsetHeight)}
 function heightOf(el){return el?el.offsetHeight:0}
 function createCell(d){const cell=mk('div','cell tone-main');cell.id=d.id;cell.dataset.type=d.type;setBox(cell,d.x,d.y,d.w,d.h);cell.appendChild(mk('div','drag-handle'));const body=mk('div','cell-body');
  if(d.type==='header'){body.innerHTML=`<div class="hdr-inner"><div class="hdr-spacer"></div><div class="hdr-mid"><input id="poster-project" class="hdr-title" placeholder="שם המיזם / הפתרון — עד 5 מילים" oninput="syncMetaFromPoster('project', this.value)"></div><div class="logo-box" id="lb1" role="button" tabindex="0" title="לחץ להעלאת לוגו" onclick="openFileInput('li1')" onkeydown="logoKey(event,'li1')"><img id="li1-img" alt="לוגו"><span id="li1-txt">לוגו</span><div class="logo-resize" onclick="event.stopPropagation()" onpointerdown="startLogoResize(event,'lb1')"></div></div><input type="file" id="li1" accept="image/*" style="display:none" onchange="loadLogo(this,'li1-img','li1-txt')"></div>`}
@@ -724,7 +728,7 @@ function clearDynamicTextBoxes(){
 }
 function restorePosterData(row){
  currentSubmissionId=row.id||null;
- const payload=row.payload||{};
+ const payload=(row.poster_data&&typeof row.poster_data==='object'?row.poster_data:null)||(row.payload&&typeof row.payload==='object'?row.payload:null)||{};
  const p=document.getElementById('poster-project'),c=document.getElementById('poster-class'),s=document.getElementById('poster-school');
  if(p)p.value=row.project_name||'';
  if(c)c.value=row.class_name||'';
@@ -754,7 +758,7 @@ function restorePosterData(row){
  });
  const nums=(payload.textBoxes||[]).map(b=>String(b.id||'').match(/^c-dyn-(\d+)$/)).filter(Boolean).map(m=>parseInt(m[1],10));
  nextDynamicId=Math.max(1,...nums.map(n=>n+1));
- applyFonts();applyAccentColor();updateMetaBoxWidth();renderPanel()
+ applyFonts();applyAccentColor();updateMetaBoxWidth();layoutMainBoxes();renderPanel()
 }
 function newPoster(){
  if(!confirm('לנקות את הפוסטר הנוכחי ולהתחיל חדש?'))return;
